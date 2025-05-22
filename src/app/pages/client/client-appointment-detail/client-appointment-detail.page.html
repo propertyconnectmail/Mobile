@@ -1,0 +1,275 @@
+
+<ion-content [fullscreen]="true">
+  <!-- Top Header -->
+  <div class="edit-profile-container">
+    <div class="header-row">
+      <div class="back-button left" (click)="prev()">
+        <img src="../../../assets/back-btn.svg" alt="Back" />
+      </div>
+      <h1 class="page-title">Appointment Detail</h1>
+    </div>
+  </div>
+
+  <!-- Profile Image -->
+  <div class="profile-section">
+    <img [src]="appointment?.professionalUrl" alt="Lawyer" class="lawyer-image" />
+  </div>
+
+  <!-- Main Detail Section -->
+  <div class="details-section">
+
+    <!-- Header Buttons & Category Scroll -->
+    <div class="appointment-header">
+      <div class="centered-actions">
+        <!-- Contact -->
+        <div class="action-icon">
+          <button class="circle-btn" (click)="contactProfessional()">
+            <img src="assets/appointment/contact.svg" alt="contact" />
+          </button>
+          <span>Contact</span>
+        </div>
+
+        <!-- Message -->
+        <div class="action-icon">
+          <button class="circle-btn" (click)="emailProfessional()">
+            <img src="assets/appointment/message.svg" alt="message" />
+          </button>
+          <span>Message</span>
+        </div>
+
+        <!-- Meeting -->
+        <div class="action-icon">
+          <button class="circle-btn" (click)="openZoomMeeting()">
+            <img src="assets/appointment/meeting.svg" alt="meeting" />
+          </button>
+          <span>Meeting</span>
+        </div>
+      </div>
+
+      <div class="category-scroll">
+        <button *ngFor="let category of categories"
+                class="category-button"
+                [class.active]="selectedCategory === category.value"
+                (click)="selectCategory(category.value)">
+          {{ category.label }}
+        </button>
+      </div>
+    </div>
+
+
+    <div *ngIf="selectedCategory === 'appointment details'" class="appointment-info">
+      <div class="appointment-detail-card">
+        <div class="row">
+          <span class="label">Appointment ID</span>
+          <span class="value">{{ appointment?.appointmentId }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Date</span>
+          <span class="value">{{ appointment?.appointmentDate }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Time</span>
+          <span class="value">{{ appointment?.appointmentTime }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Status</span>
+          <span class="value status ongoing">{{ appointment?.appointmentStatus | titlecase }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group" *ngIf="selectedCategory === 'appointment details' && appointment?.professionalDocumentsUploaded === true && appointment?.appointmentStatus != 'completed'">
+        <div class="selection-buttons">
+          <button
+            class="load-button"
+            expand="block"
+            type="submit"
+            [disabled]="isSubmitting"
+            (click)="onCompleteAppointment()"
+          >
+            <div class="btn-inner">
+              <span *ngIf="!isSubmitting">Complete Appointment</span>
+              <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+    <div *ngIf="selectedCategory === 'appointment details'" class="checklist-info">
+      <div class="card checklist-card">
+        <h4>Appointment Checklist</h4>
+    
+        <!-- 1. Contact Lawyer -->
+        <div class="checklist-item" [ngClass]="{ 'completed': appointment?.chatInitiated === true }">
+          <img src="assets/appointment/contact-checklist.svg" />
+          <div class="text">
+            <p>Contact Lawyer</p>
+            <span>3-4 Minutes</span>
+          </div>
+        </div>
+    
+        <!-- 2. Client uploaded documents -->
+        <div class="checklist-item" [ngClass]="{ 'completed': appointment?.clientDocumentsUploaded }">
+          <img src="assets/appointment/uploaded-client-checklist.svg" />
+          <div class="text">
+            <p>Client uploaded required documents</p>
+            <span>Less than 2 minutes</span>
+          </div>
+        </div>
+    
+        <!-- 3. Meeting attended by both -->
+        <div class="checklist-item" [ngClass]="{ 'completed': appointment?.zoomMeetingCompletedClient && appointment?.zoomMeetingCompletedProfessional }">
+          <img src="assets/appointment/meeting-checklist.svg" />
+          <div class="text">
+            <p>Both parties attended the meeting</p>
+            <span>4-5 Minutes</span>
+          </div>
+        </div>
+    
+        <!-- 4. Professional uploaded final documents -->
+        <div class="checklist-item" [ngClass]="{ 'completed': appointment?.professionalDocumentsUploaded }">
+          <img src="assets/appointment/uploaded-professional-checklist.svg" />
+          <div class="text">
+            <p>Professional uploaded final documents</p>
+            <span>1-2 Minutes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guidelines -->
+    <div *ngIf="selectedCategory === 'appointment details'" class="guidelines-info">
+      <div class="card guidelines-card">
+        <h4>Guidelines for Clients</h4>
+        <div class="guideline" *ngFor="let g of guidelines; let i = index">
+          <div class="circle-number">{{ i + 1 }}</div>
+          <p class="guideline-text">{{ g }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Details -->
+    <div *ngIf="selectedCategory === 'client detail'" class="client-details-wrapper">
+      <div class="client-card">
+        <div class="client-header">
+          <img [src]="client?.url" class="client-avatar" />
+          <div class="client-basic">
+            <h3>{{ client?.firstName }} {{ client?.lastName }}</h3>
+            <span class="client-status">{{client?.status | titlecase}} Client</span>
+          </div>
+        </div>
+        <div class="client-info-grid">
+          <div class="info-item"><label>Email</label><p>{{ client?.email }}</p></div>
+          <div class="info-item"><label>NIC</label><p>{{ client?.nic }}</p></div>
+          <div class="info-item"><label>Phone</label><p>{{ client?.phone }}</p></div>
+          <div class="info-item"><label>Address</label><p>{{ client?.address }}</p></div>
+          <div class="info-item"><label>Date of Birth</label><p>{{ client?.dob }}</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Professional Details -->
+    <div *ngIf="selectedCategory === 'lawyer detail'" class="professional-details-wrapper">
+      <div class="professional-card">
+        <div class="professional-header">
+          <img [src]="professional?.url" class="professional-avatar" />
+          <div class="professional-basic">
+            <h3>{{ professional?.firstName }} {{ professional?.lastName }}</h3>
+            <span class="type-badge">{{ professional?.type | titlecase }}</span>
+            <span class="status-badge ongoing">{{ professional?.status }}</span>
+          </div>
+        </div>
+        <div class="professional-info-grid">
+          <div class="info-item"><label>Email</label><p>{{ professional?.email }}</p></div>
+          <div class="info-item"><label>NIC</label><p>{{ professional?.nic }}</p></div>
+          <div class="info-item"><label>Phone</label><p>{{ professional?.phone }}</p></div>
+          <div class="info-item"><label>Address</label><p>{{ professional?.address }}</p></div>
+          <div class="info-item"><label>Date of Birth</label><p>{{ professional?.dob }}</p></div>
+          <div class="info-item"><label>Consultation Fee</label><p>LKR {{ professional?.consultationFee }}</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Details -->
+    <div *ngIf="selectedCategory === 'payment detail'" class="payment-info-wrapper">
+      <div class="payment-card">
+        <h4>Payment Summary</h4>
+        <div class="payment-item"><span class="label">Total Fee</span><span class="value">LKR {{ appointment?.totalPaymentAmount }}</span></div>
+        <div class="payment-item"><span class="label">Professional Fee</span><span class="value">LKR {{ appointment?.professionalPaymentAmount }}</span></div>
+        <div class="payment-item"><span class="label">Platform Commission</span><span class="value">LKR {{ appointment?.commission }}</span></div>
+        <div class="payment-item"><span class="label">Transfer Fee</span><span class="value">LKR {{ appointment?.transactionFee }}</span></div>
+      </div>
+    </div>
+
+
+    <!-- Client Document Upload Section -->
+    <div *ngIf="selectedCategory === 'client detail' && appointment.chatInitiated === true " class="document-section">
+
+      <h4>Client Documents</h4>
+
+      <!-- Dropzone or click-to-select area -->
+      <div class="upload-dropzone" (click)="clientFileInput.click()">
+        <img src="assets/appointment/file-upload.svg" alt="Upload Icon" />
+        <p>Click here to select documents (PDF, DOC, DOCX)</p>
+        <input
+          #clientFileInput
+          type="file"
+          accept=".doc,.docx,.pdf"
+          multiple
+          style="display: none"
+          (change)="handleFileUpload($event, 'client')"
+        />
+      </div>
+
+      <!-- Buttons only shown conditionally -->
+      <div class="document-buttons">
+        <button
+          class="doc-btn upload-btn"
+          *ngIf="clientDocuments.length > 0"
+          (click)="uploadClientDocuments()"
+        >
+          <img src="assets/appointment/file-upload.svg" alt="Upload" />
+          Upload Files
+        </button>
+
+        <button
+          class="doc-btn download-btn"
+          *ngIf="appointment?.clientDocuments?.length > 0"
+          (click)="downloadDocuments('client')"
+        >
+          <img src="assets/appointment/file-download.svg" alt="Download" />
+          Download Files
+        </button>
+      </div>
+
+      <!-- Preview selected files -->
+      <ul class="file-list" *ngIf="clientDocuments.length">
+        <li *ngFor="let file of clientDocuments">
+          {{ file.name }}
+        </li>
+      </ul>
+    </div>
+
+
+    <!-- Professional Document Upload Section -->
+    <div *ngIf="selectedCategory === 'lawyer detail' && appointment.zoomMeetingCompletedClient === true && appointment.zoomMeetingCompletedProfessional === true && appointment?.professionalDocuments?.length > 0" class="document-section">
+
+      <h4>Professional Documents</h4>
+
+      <!-- Buttons only shown conditionally -->
+      <div class="document-buttons">
+
+        <button
+          class="doc-btn download-btn"
+          *ngIf="appointment?.professionalDocuments?.length > 0"
+          (click)="downloadDocuments('professional')"
+        >
+          <img src="assets/appointment/file-download.svg" alt="Download" />
+          Download Files
+        </button>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+

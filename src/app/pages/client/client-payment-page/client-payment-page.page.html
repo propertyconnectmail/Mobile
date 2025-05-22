@@ -1,0 +1,67 @@
+<ion-content class="payment-content" [fullscreen]="true">
+
+  <div class="edit-profile-container">
+    <div class="header-row">
+      <div class="back-button left" (click)="prev()">
+        <img src="../../../assets/back-btn.svg" alt="Back" />
+      </div>
+      <h1 class="page-title">Select Payment</h1>
+    </div>
+  </div>
+
+  <div class="lawyer-card">
+    <img [src]="lawyer.url" alt="Lawyer" class="lawyer-img">
+    <div class="lawyer-info">
+      <h2>{{lawyer.firstName + ' '+lawyer.lastName }}</h2>
+      <p>Verified {{lawyer.type | titlecase}}</p>
+      <div class="lawyer-actions">
+        <button class="appointment-btn">Get Appointment</button>
+        <div class="price-tag">LKR {{lawyer.consultationFee}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards-section">
+    <div class="cards-title">
+      <p>Select Card</p>
+    </div>
+
+    <!-- Card List -->
+    <div class="card-list">
+        <div 
+          class="card-item" 
+          *ngFor="let card of paymentCards; let i = index"
+          [class.selected]="selectedCardIndex === i"
+          (click)="selectCard(i)"
+        >
+          <div class="card-left">
+            <img src="assets/icon/card.svg" alt="Card" class="card-icon">
+            <p><span> * * * * &nbsp; * * * * &nbsp; * * * *  &nbsp;{{ card.last4 }}</span></p>
+          </div>
+          <div class="card-right">
+            <div class="radio">
+              <div class="inner-circle" *ngIf="selectedCardIndex === i"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+  </div>
+</ion-content>
+
+<div class="custom-footer" (click)="createAppointment()">
+  <div class="button-group">
+        <div class="selection-buttons">
+          <button
+            class="load-button"
+            expand="block"
+            type="submit"
+          >
+            <div class="btn-inner">
+              <span *ngIf="!isSubmitting">Create Appointment</span>
+              <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+</div>

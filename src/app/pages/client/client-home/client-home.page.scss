@@ -1,0 +1,293 @@
+ion-content {
+    display: block;
+}
+
+.client-home {
+    font-family: 'Manrope', sans-serif;
+    background-color: #f9fafb;
+    --overflow: auto; /* ensures scroll still works */
+    scrollbar-width: none; /* Firefox */
+
+    .client-home-wrapper{
+      padding: 10vw 6vw 0vw 6vw;
+
+      .header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 10vw;
+        background-color: #f9fafb;
+
+        .icon {
+          width: 7vw;
+          height: 7vw;
+          position: absolute;
+          left: 0;
+        }
+
+        .title {
+          width: 100%;
+          text-align: center;
+          font-size: 7vw;
+          font-weight: 800;
+
+          .bold {
+            color: #1a1a1a;
+            font-weight: 600;
+          }
+
+          .highlight {
+            color: #2196f3;
+            font-weight: 700;
+          }
+        }
+      }
+
+      .section-title {
+        background-color: #f9fafb;
+        font-size: 5vw;
+        font-weight: 600;
+        padding-top:6vw;
+        padding-left: 1%;
+        padding-bottom: 5%;
+      }
+    
+      .section-desc {
+        font-size: 3.5vw;
+        color: #666;
+      }
+    
+      .reminder-card {
+        background-color: #2196f3;
+        border-radius: 16px;
+        padding: 5vw;
+        color: white;
+        padding-top: 3vw;
+
+        .top-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h2 {
+              font-size: 4.5vw;
+              font-weight: 600;
+              margin: 0;
+              margin-bottom: 5%;
+            }
+
+            .role {
+              font-size: 3.5vw;
+              margin: 0;
+            }
+          }
+
+          .profile-img {
+            width: 18vw;
+            height: 18vw;
+            object-fit: cover;
+            border-radius: 12px;
+          }
+        }
+
+        .date-time-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 4vw 0;
+
+          .date-time-item {
+            display: flex;
+            align-items: center;
+
+            img {
+              width: 4vw;
+              margin-right: 2vw;
+            }
+
+            span {
+              font-size: 3.5vw;
+            }
+          }
+        }
+
+        .action-buttons {
+          display: flex;
+          justify-content: flex-start;
+
+          .reschedule {
+            padding: 2.5vw 4vw;
+            font-size: 3.5vw;
+            border-radius: 10px;
+            background: white;
+            color: #2196f3;
+            font-weight: 600;
+            border: none;
+            width: 100%;
+          }
+        }
+      }
+    
+      .section-row {
+        background-color: #f9fafb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center; // ensures vertical alignment
+        padding-top: 5vw;
+
+        .section-title,
+        .see-all {
+          display: flex;
+          align-items: center; // make text align vertically centered
+          margin: 0;
+          line-height: 1;
+        }
+
+        .section-title {
+          font-size: 4.5vw;
+          font-weight: 600;
+        }
+
+        .see-all {
+          margin-top: 1.8%;
+          font-size: 3.5vw;
+          color: #2196f3;
+          font-weight: 600;
+          cursor: pointer;
+          margin-right: 2%;
+        }
+      }
+
+
+    
+      .horizontal-scroll {
+        display: flex;
+        overflow-x: auto;
+        gap: 4vw;
+        padding: 3vw 0;
+        background-color: #f9fafb;
+        scroll-snap-type: x mandatory;
+        padding-left: 15%;
+        padding-right: 2%;
+
+        // Prevent scrollbar appearance on some devices
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .consultant-card {
+          flex: 0 0 auto; // This makes horizontal scroll possible
+          width: 50vw; // or set fixed width like 280px
+          background: #ffffff;
+          border-radius: 16px;
+          padding: 6vw 2vw;
+          text-align: center;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          scroll-snap-align: start;
+
+          &:active {
+            transform: scale(0.98);
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+          }
+
+          .image-wrapper {
+            position: relative;
+            width: 20vw;
+            height: 20vw;
+            margin: 0 auto;
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+          }
+
+          h3 {
+            font-size: 4vw;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin: 2vw 0 1vw;
+          }
+
+          .role {
+            font-size: 3.5vw;
+            color: #666666;
+            margin-bottom: 2vw;
+          }
+
+          .rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.2vw;
+            font-weight: 600;
+            color: #666;
+
+            img {
+              width: 4vw;
+              height: 4vw;
+              margin-right: 1vw;
+            }
+
+            .fee {
+              font-size: 3.2vw;
+              font-weight: 600;
+              color: #2196f3;
+              margin-left: 2vw;
+            }
+          }
+          .location {
+            font-size: 3.4vw;
+            color: #18A0FB;
+            font-weight: 600;
+            margin-top: 1vw;
+          }
+        }
+      }
+    }
+}
+
+
+.client-home::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.client-home {
+  -webkit-overflow-scrolling: touch;
+}
+
+  
+
+.shimmer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5vw;
+
+  .shimmer-card {
+    height: 100vh;
+    border-radius: 16px;
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

@@ -1,0 +1,125 @@
+<ion-content class="login-screen ion-padding" [fullscreen]="true">
+
+  <div class="back-button" (click)="prev()">
+    <img src="../../../assets/back-btn.svg" alt="Back" />
+  </div>
+
+  <div class="login-container">
+    <img src="assets/logo/logo.svg" alt="App Logo" class="logo" />
+    <h1>Create Your Account</h1>
+    <p class="welcome-subtitle">Access premium features, manage your profile, and connect with professionals.</p>
+
+    <form (ngSubmit)="onRegistration()" [formGroup]="registrationForm" class="login-form">
+      <div class="input-group">
+        <label>First Name <span> *</span></label>
+        <input type="text" formControlName="firstName" placeholder="Your First Name" />
+        <div class="error-text" *ngIf="registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched">
+          First name is required and must be at least 3 characters.
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>Last Name <span> *</span></label>
+        <input type="text" formControlName="lastName" placeholder="Your Last Name" />
+        <div class="error-text" *ngIf="registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched">
+          Last name is required and must be at least 3 characters.
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>Email <span> *</span></label>
+        <input type="email" formControlName="email" placeholder="Your Email Address" />
+        <div class="error-text" *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+          Please enter a valid email.
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>NIC Number <span> *</span></label>
+        <input type="text" formControlName="nic" placeholder="Your NIC Number" />
+        <div class="error-text" *ngIf="registrationForm.get('nic')?.invalid && registrationForm.get('nic')?.touched">
+          Please enter a valid NIC number.
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>Phone <span> *</span></label>
+        <input type="tel" formControlName="phone" placeholder="Your Phone Number" />
+        <div class="error-text" *ngIf="registrationForm.get('phone')?.invalid && registrationForm.get('phone')?.touched">
+          Please enter a valid 10-digit phone number.
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>Address <span> *</span></label>
+        <input type="text" formControlName="address" placeholder="Your Address" />
+        <div class="error-text" *ngIf="registrationForm.get('address')?.invalid && registrationForm.get('address')?.touched">
+          Address is required.
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>Date of Birth <span> *</span></label>
+        <input type="date" formControlName="dob" placeholder="Your Date of Birth" />
+        <div class="error-text" *ngIf="registrationForm.get('dob')?.invalid && registrationForm.get('dob')?.touched">
+          Please enter a valid date of birth.
+        </div>
+      </div>
+      
+      <div class="input-group password-group">
+        <label>Password <span> *</span></label>
+        <div class="password-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="********" />
+          <img src="assets/icon/Eye.svg" (click)="togglePassword()" alt="Toggle visibility" />
+        </div>
+        <div class="error-text" *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+          Password is required (min 6 characters).
+        </div>
+      </div>
+      
+      <div class="input-group password-group">
+        <label>Confirm Password <span> *</span></label>
+        <div class="password-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="retypePassword" placeholder="********" autocomplete="off"/>
+          <img src="assets/icon/Eye.svg" (click)="togglePassword()" alt="Toggle visibility" />
+        </div>
+        <div class="error-text" *ngIf="registrationForm.get('retypePassword')?.invalid && registrationForm.get('retypePassword')?.touched" autocomplete="off">
+          Retype Password is required and should match password.
+        </div>
+      </div>
+      
+        <div class="input-group">
+          <div class="remember">
+            <ion-checkbox
+              formControlName="agreement"
+              labelPlacement="end"
+              justify="start"
+            >
+              I agree to the Terms & Conditions
+            </ion-checkbox>
+          </div>
+          <div class="error-text" *ngIf="registrationForm.get('agreement')?.invalid && registrationForm.get('agreement')?.touched">
+            You must agree before to the terms and coditions.
+          </div>
+        </div>
+      
+      <div class="button-group">
+        <div class="selection-buttons">
+          <button
+            class="load-button"
+            expand="block"
+            type="submit"
+            [disabled]="isSubmitting"
+            (click)="onRegistration()"
+          >
+            <div class="btn-inner">
+              <span *ngIf="!isSubmitting">Sign Up</span>
+              <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+</ion-content>

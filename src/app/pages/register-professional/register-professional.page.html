@@ -1,0 +1,146 @@
+<ion-content class="login-screen ion-padding" [fullscreen]="true">
+  <div class="back-button" (click)="prev()">
+    <img src="../../../assets/back-btn.svg" alt="Back" />
+  </div>
+
+  <div class="login-container">
+    <img src="assets/logo/logo.svg" alt="App Logo" class="logo" />
+    <h1>Create Your Account</h1>
+    <p class="welcome-subtitle">Become a trusted expert on our platform.</p>
+
+    <form (ngSubmit)="onRegistration()" [formGroup]="registrationForm" class="login-form">
+
+      <!-- Basic Fields -->
+      <div class="input-group" *ngFor="let field of basicFields">
+        <label>{{ field.label }} <span>*</span></label>
+        <input [type]="field.type" [formControlName]="field.controlName" [placeholder]="field.placeholder" />
+        <div class="error-text" *ngIf="registrationForm.get(field.controlName)?.invalid && registrationForm.get(field.controlName)?.touched">
+          {{ field.error }}
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Date of Birth <span> *</span></label>
+        <input type="date" formControlName="dob" placeholder="Your Date of Birth" />
+        <div class="error-text" *ngIf="registrationForm.get('dob')?.invalid && registrationForm.get('dob')?.touched">
+          Please enter a valid date of birth.
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="input-group">
+        <label>Years of Experience <span>*</span></label>
+        <input type="number" formControlName="experience" placeholder="e.g., 5" />
+        <div class="error-text" *ngIf="registrationForm.get('experience')?.invalid && registrationForm.get('experience')?.touched">
+          Please enter a valid number of years.
+        </div>
+      </div>
+
+
+      <!-- Experience -->
+      <div class="input-group">
+        <label>About You <span>*</span></label>
+        <input type="text" formControlName="about" placeholder="Im a Certified Professional in land ..." />
+        <div class="error-text" *ngIf="registrationForm.get('about')?.invalid && registrationForm.get('about')?.touched">
+          Please enter a valid about you section.
+        </div>
+      </div>
+
+
+      <!-- Experience -->
+      <div class="input-group">
+        <label>Consultation Fee <span>*</span></label>
+        <input type="number" formControlName="consultationFee" placeholder="e.g., 5000" />
+        <div class="error-text" *ngIf="registrationForm.get('consultationFee')?.invalid && registrationForm.get('consultationFee')?.touched">
+          Please enter a valid ConsultationFee.
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="input-group password-group">
+        <label>Password <span>*</span></label>
+        <div class="password-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="********" />
+          <img src="assets/icon/Eye.svg" (click)="togglePassword()" alt="Toggle visibility" />
+        </div>
+        <div class="error-text" *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+          Password should be atleast 6 characters
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="input-group password-group">
+        <label>Confirm Password <span>*</span></label>
+        <div class="password-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="retypePassword" placeholder="********" />
+          <img src="assets/icon/Eye.svg" (click)="togglePassword()" alt="Toggle visibility" />
+        </div>
+        <div class="error-text" *ngIf="registrationForm.get('retypePassword')?.invalid && registrationForm.get('retypePassword')?.touched">
+          Password should be atleast 6 characters and matching the password field
+        </div>
+      </div>
+
+      <!-- Type -->
+      <div class="input-group">
+        <label>Professional Type <span>*</span></label>
+        <select formControlName="type">
+          <option value="" disabled selected>Select your profession</option>
+          <option value="lawyer">Lawyer</option>
+          <option value="valuer">Valuer</option>
+          <option value="surveyor">Surveyor</option>
+        </select>
+        <div class="error-text" *ngIf="registrationForm.get('type')?.invalid && registrationForm.get('type')?.touched">
+          Please select a professional type
+        </div>
+      </div>
+
+      <!-- Certifications Upload -->
+      <div class="input-group">
+        <label>Upload Certifications (PDF, DOC, DOCX)</label>
+        <div class="upload-dropzone" (click)="certFileInput.click()">
+          <img src="assets/appointment/file-upload.svg" alt="Upload Icon" />
+          <p>Click here to select documents</p>
+          <input
+            #certFileInput
+            type="file"
+            accept=".doc,.docx,.pdf"
+            multiple
+            style="display: none"
+            (change)="handleCertUpload($event)"
+          />
+        </div>
+        <ul *ngIf="selectedCertifications.length">
+          <li *ngFor="let file of selectedCertifications">{{ file.name }}</li>
+        </ul>
+      </div>
+
+      <!-- Agreement -->
+      <div class="input-group">
+        <ion-checkbox formControlName="agreement" labelPlacement="end" justify="start">
+          I agree to the Terms & Conditions
+        </ion-checkbox>
+        <div class="error-text" *ngIf="registrationForm.get('agreement')?.invalid && registrationForm.get('agreement')?.touched">
+          You must agree before continuing.
+        </div>
+      </div>
+
+      <div class="button-group">
+        <div class="selection-buttons">
+          <button
+            class="load-button"
+            expand="block"
+            type="submit"
+            [disabled]="isSubmitting"
+            (click)="onRegistration()"
+          >
+            <div class="btn-inner">
+              <span *ngIf="!isSubmitting">Sign Up</span>
+              <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</ion-content>

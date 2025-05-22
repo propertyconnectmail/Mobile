@@ -1,0 +1,42 @@
+<ion-content class="eligibility-wrapper ion-padding" [fullscreen]="true">
+  <div class="eligibility-container">
+    <div class="header-row">
+      <div class="back-button" (click)="prev()">
+        <img src="../../../assets/back-btn.svg" alt="Back" />
+      </div>
+      <h1 class="page-title">Loan Eligibility</h1>
+    </div>
+
+    <div class="form-section">
+      <label>Property Forced Sale Value (LKR)</label>
+      <input type="number" [(ngModel)]="forcedSaleValue" placeholder="E.g., 10000000" />
+
+      <label>Monthly Income (LKR)</label>
+      <input type="number" [(ngModel)]="monthlyIncome" placeholder="E.g., 250000" />
+
+      <label>Monthly Expenses (LKR)</label>
+      <input type="number" [(ngModel)]="monthlyExpenses" placeholder="E.g., 100000" />
+
+      <label>Existing Loan Repayments (LKR)</label>
+      <input type="number" [(ngModel)]="existingEMI" placeholder="E.g., 15000" />
+
+      <label>Loan Tenure (Years)</label>
+      <input type="number" [(ngModel)]="tenure" placeholder="E.g., 20" />
+
+      <label>Interest Rate (% per annum)</label>
+      <input type="number" [(ngModel)]="interestRate" placeholder="E.g., 13" />
+
+      <button (click)="calculateEligibility()">Check Eligibility</button>
+    </div>
+
+    <div class="result-section" *ngIf="showResults">
+      <h3 *ngIf="eligibleLoan > 0" class="eligible-text">You are eligible for:</h3>
+      <h3 *ngIf="eligibleLoan === 0" class="ineligible-text">Not eligible for loan with current details</h3>
+
+      <p class="amount" [ngClass]="{'eligible': eligibleLoan > 0, 'ineligible': eligibleLoan === 0}">
+        LKR {{ eligibleLoan | number }}
+      </p>
+      <p class="emi">Estimated EMI: <strong>LKR {{ calculatedEMI | number }}</strong></p>
+    </div>
+  </div>
+</ion-content>

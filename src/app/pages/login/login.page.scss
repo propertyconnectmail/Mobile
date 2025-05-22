@@ -1,0 +1,434 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
+
+// Theme Variables (optional centralization)
+$primary-color: #18A0FB;
+$bg-color: #f9fafb;
+$font: 'Manrope', sans-serif;
+
+:host {
+  --background: #f9fafb;
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: 0.6px;
+}
+
+ion-content {
+  --background: #f9fafb;
+  overflow: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  letter-spacing: 0.6px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }  
+
+  .back-button {
+    position: absolute;
+    // top: clamp(56px, 4vw, 26px);
+    left: clamp(18px, 4vw, 26px);
+    width: clamp(42px, 6vw, 50px);
+    height: clamp(42px, 6vw, 50px);
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+    cursor: pointer;
+    will-change: transform;
+    margin-top: 3%;
+  
+    &:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      animation: bounceClick 0.3s ease-in-out;
+    }
+  
+    img {
+      width: clamp(16px, 4vw, 24px);
+      height: clamp(16px, 4vw, 24px);
+    }
+  }
+
+  ion-toast{
+    z-index: 9990 !important;
+    opacity: 1 !important;
+    display: block !important;
+    pointer-events: auto !important;
+  }
+}
+
+.login-screen {
+  font-family: 'Manrope', sans-serif;
+  background: var(--background);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.login-container {
+  padding: clamp(1rem, 4vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Manrope', sans-serif;
+
+
+  .logo {
+    display: block;
+    width: clamp(120px, 30%, 180px);
+    margin: clamp(32px, 6vh, 64px) auto clamp(32px, 6vh, 64px) auto;
+    object-fit: contain;
+  }
+  
+}
+
+h1 {
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 900;
+  margin-top: 0; // already spaced by logo's bottom margin
+  margin-bottom: clamp(12px, 2vh, 24px);
+  color: #111827;
+  font-family: 'Manrope', sans-serif;
+}
+
+.welcome-subtitle {
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  color: #6B7280;
+  font-weight: 400;
+  margin-bottom: clamp(24px, 5vh, 40px); // less cramped
+  text-align: center;
+  line-height: 1.6;
+  font-family: 'Manrope', sans-serif;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.input-group {
+  margin-bottom: clamp(16px, 3vh, 28px);
+
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    border: 1px solid #d1d5db;
+    border-radius: 0.6rem;
+    background: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    color: #343a40;
+    font-weight: 300;
+    font-family: 'Manrope', sans-serif;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      transition: border-color 0.3s ease-in-out;
+    }
+  }
+
+  input::placeholder {
+    color: #9CA3AF;
+    font-weight: 400;
+  }
+
+  .error-text {
+    font-size: 0.8rem;
+    color: #ef4444;
+    margin-top: 0.25rem;
+  }
+}
+
+.password-group .password-wrapper {
+  font-family: 'Manrope', sans-serif;
+  position: relative;
+
+  img {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+}
+
+.options {
+  font-family: 'Manrope', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: clamp(16px, 2vh, 24px);
+  font-size: 0.85rem;
+  color: #6b7280;
+
+  .forgot-link {
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:active {
+      color: darken($primary-color, 20%); // Slightly darker on hover
+      transition: color 0.3s ease;
+    }
+  }
+
+  .remember {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; // small gap between checkbox and text
+    color: #374151;
+  }
+}
+
+
+
+.button-group {
+  width: 100%;
+  margin-top: clamp(24px, 5vh, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.selection-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+
+  button {
+    position: relative;
+    overflow: hidden; // for ripple containment
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(18px, 2vw, 20px);
+    font-weight: 600;
+    color: #FFFFFF;
+    background: #18A0FB;
+    margin-top: 5%;
+    letter-spacing: 0.6px;
+    padding: 14px 24px;
+    border: 1px solid #18A0FB;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  
+    &:active {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
+    }
+  
+    // Spinner Styles
+    .btn-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .spinner {
+      margin: 0;
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      box-sizing: border-box;
+      opacity: 1;
+      transform: scale(1);
+    }
+  
+    // Adjusted spinner sizes
+    .spinner-sm { width: 16px; height: 16px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+    .spinner-md { width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+    .spinner-lg { width: 28px; height: 28px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+    .spinner-xl { width: 36px; height: 36px; border: 4px solid rgba(255, 255, 255, 0.4); border-top: 4px solid white; }
+  
+    // Modifier: dark spinner for light backgrounds
+    .spinner-dark {
+      border-color: rgba(0, 0, 0, 0.1);
+      border-top-color: #333;
+    }
+  
+    // Ripple effect
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 600ms linear;
+      background-color: rgba(0, 123, 255, 0.3);
+      pointer-events: none;
+    }
+  
+    // Button hover, active, and disabled states
+    &:hover {
+      background-color: #1579C8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+  
+    &:active {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  // Spinner animation (as per your provided code)
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  // Ripple keyframe animation
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }  
+}
+
+.divider {
+  margin: clamp(24px, 5vh, 40px) 0;
+  text-align: center;
+  color: #9ca3af; //9ca3af
+  font-size: 0.85rem;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: clamp(24px, 4vh, 40px);
+
+  .social-btn {
+    display: flex;
+    align-items: center;
+    color: #202020;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    background: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    img {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    &:hover {
+      background: #f3f4f6;
+    }
+
+    // Ripple span
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 600ms linear;
+      background-color: rgba(0, 123, 255, 0.3);
+      pointer-events: none;
+    }
+
+    &:active {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
+    }
+  }
+}
+
+// Ripple animation
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.signup-text {
+  margin-top: clamp(24px, 4vh, 40px);
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-align: center;
+  transition: color 0.3s ease;
+
+  .signup-link {
+    color: $primary-color;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 0.25rem;
+    transition: color 0.3s ease;
+
+    &:active {
+      color: darken($primary-color, 20%); // Slightly darker on hover
+      transition: color 0.3s ease;
+    }
+  }
+}
+
+.change-type {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+  display: block;
+  margin: 0.6rem;
+  text-align: center;
+  transition: color 0.3s ease;
+
+  .signup-link {
+    color: $primary-color;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 0.25rem;
+    transition: color 0.3s ease;
+
+    &:active {
+      color: darken($primary-color, 20%); // Slightly darker on hover
+      transition: color 0.3s ease;
+    }
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.9);
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+ ion-toast{
+    z-index: 9990 !important;
+    opacity: 1 !important;
+    display: block !important;
+    pointer-events: auto !important;
+  }

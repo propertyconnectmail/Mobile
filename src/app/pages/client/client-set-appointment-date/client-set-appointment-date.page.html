@@ -1,0 +1,115 @@
+<ion-content [fullscreen]="true">
+
+  <div class="edit-profile-container">
+    <div class="header-row">
+      <div class="back-button left" (click)="prev()">
+        <img src="../../../assets/back-btn.svg" alt="Back" />
+      </div>
+      <h1 class="page-title">Set Appointment</h1>
+      <div class="back-button right">
+        <img src="assets/professional/professional-favourites.svg" alt="Favorite" /> 
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <img [src]="lawyer.url" alt="Lawyer" class="lawyer-image" />
+
+    <div class="stats">
+      <div class="stat">
+        <img src="assets/professional/professional-heart.svg" alt="Consults" />
+        <span class="stat-number">{{ lawyer.consults }}+</span>
+        <span class="stat-label">Consults</span>
+      </div>
+      <div class="stat">
+        <img src="assets/professional/professional-crown.svg" alt="Experience" />
+        <span class="stat-number">{{ lawyer.experience }} years</span>
+        <span class="stat-label">Experience</span>
+      </div>
+      <div class="stat">
+        <img src="assets/professional/professional-star.svg" alt="Rating" />
+        <span class="stat-number">{{ lawyer.averageRating }}</span>
+        <span class="stat-label">Rating</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="selection-section">
+    <div class="month-selector">
+      <button (click)="prevMonth()" style="color: #18A0FB;" [disabled]="isPrevDisabled" >&#10094;</button>
+      <span>{{ months[currentMonthIndex] }} {{ selectedYear }}</span>
+      <button (click)="nextMonth()" style="color: #18A0FB;">&#10095;</button>
+    </div>
+
+    <div *ngIf="isLoadingDates" class="shimmer-placeholder"></div>
+
+    <div *ngIf="!isLoadingDates" 
+      class="date-scroll-wrapper"
+      [class.slide-left]="slideDirection === 'left'"
+      [class.slide-right]="slideDirection === 'right'"
+      (touchstart)="onTouchStart($event)" 
+      (touchend)="onTouchEnd($event)">
+    
+    <div class="date-scroll">
+      <button
+        *ngFor="let date of dates"
+        [class.selected]="date.date === selectedDate?.date && date.month === selectedDate?.month"
+        (click)="selectDate(date)"
+        class="date-button animate-tap"
+      >
+        <p class="day">{{ date.day }}</p>
+        <p class="date">{{ date.date }}</p>
+      </button>
+    </div>
+
+  </div>
+
+
+
+    <div class="slot-section">
+      <h3>Morning Slots</h3>
+      <div class="slot-row">
+        <button
+          *ngFor="let slot of morningSlots"
+          [class.selected]="selectedSlot === slot"
+          (click)="selectSlot(slot)"
+          class="slot-button animate-tap"
+          [disabled]="slot.disabled"
+        >
+          {{ slot.time }}
+        </button>
+      </div>
+
+      <h3>Afternoon Slots</h3>
+      <div class="slot-row">
+        <button
+          *ngFor="let slot of afternoonSlots"
+          [class.selected]="selectedSlot === slot"
+          (click)="selectSlot(slot)"
+          class="slot-button animate-tap"
+          [disabled]="slot.disabled"
+        >
+          {{ slot.time }}
+        </button>
+      </div>
+
+      <h3>Evening Slots</h3>
+      <div class="slot-row">
+        <button
+          *ngFor="let slot of eveningSlots"
+          [class.selected]="selectedSlot === slot"
+          (click)="selectSlot(slot)"
+          class="slot-button animate-tap"
+          [disabled]="slot.disabled"
+        >
+          {{ slot.time }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<div class="custom-footer" (click)="goToPaymentSelection()">
+  <button class="appointment-button">Continue</button>
+</div>
+

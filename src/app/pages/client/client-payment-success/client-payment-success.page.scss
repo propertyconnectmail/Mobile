@@ -1,0 +1,118 @@
+.payment-success-page {
+  --background: #f9fafb;
+  font-family: 'Manrope', sans-serif;
+  overflow-y: hidden;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    min-height: 100vh;
+    padding-bottom: 7rem;
+    animation: fadeIn 0.6s ease;
+  }
+
+  .content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .title {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: 700;
+    color: #111827; // dark text
+    margin: 0;
+  }
+
+  .image-wrapper {
+    background-color: #1e90ff;
+    border-radius: 50%;
+    padding: clamp(3rem, 5vw, 4rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 12px rgba(30, 144, 255, 0.25);
+    animation: bounce 1s ease;
+    margin: 0 auto;
+  }
+
+  .checkmark {
+    width: clamp(4rem, 6vw, 5rem);
+    height: clamp(4rem, 6vw, 5rem);
+  }
+
+  .subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+  }
+
+  .description {
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-weight: 400;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .custom-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    padding: 1.2rem 1rem;
+    box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+
+    .go-back-btn {
+      width: 100%;
+      background: #1e90ff;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-family: 'Manrope', sans-serif;
+      border-radius: 10px;
+      height: clamp(3rem, 7vw, 3.5rem);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+}

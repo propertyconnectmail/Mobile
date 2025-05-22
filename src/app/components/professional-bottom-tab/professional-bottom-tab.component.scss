@@ -1,0 +1,73 @@
+.bottom-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 5vw;
+    border-top: 1px solid rgba(200, 200, 200, 0.3);
+    font-family: 'Manrope', sans-serif;
+  
+    // 💡 Blur background layer
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.85);
+      z-index: -1; // Put it behind content
+      border-top: 1px solid rgba(200, 200, 200, 0.3);
+    }
+  
+    display: flex;
+    justify-content: space-between;
+  
+    .menu-item {
+      flex: 1;
+      text-align: center;
+      font-size: clamp(10px, 2.5vw, 13px);
+      font-weight: 500;
+      color: #9e9e9e;
+      font-family: 'Manrope', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 0;
+      border-radius: 20px;
+      position: relative;
+      transition: all 0.3s ease;
+      transform: translateZ(0); // Forces sharp rendering on some browsers
+  
+      img {
+        width: 24px;
+        height: 24px;
+        transition: all 0.3s ease;
+        transform: translateZ(0); // Also helps sharpness
+      }
+  
+      &.active {
+        color: #18a0fb;
+        background: rgba(24, 160, 251, 0.1);
+  
+        img {
+          filter: brightness(0) saturate(100%) invert(34%) sepia(98%) saturate(2756%)
+                  hue-rotate(192deg) brightness(94%) contrast(97%);
+          transform: scale(1.1);
+        }
+  
+        span {
+          font-weight: 600;
+        }
+      }
+  
+      &:hover {
+        background: rgba(24, 160, 251, 0.05);
+      }
+  
+      &:active {
+        transform: scale(0.96);
+      }
+    }
+  }
+  

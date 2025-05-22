@@ -1,0 +1,113 @@
+  
+  <div *ngIf="loading" class="shimmer-container">
+    <div class="shimmer-card" *ngFor="let item of [1,2,3,4,5,6]"></div>
+</div>
+  <ion-content class="client-home">
+
+    <div class="client-home-wrapper">
+      <!-- Header -->
+      <div class="header">
+        <!-- <img src="assets/logo/logo.svg" alt="Logo" class="icon" /> -->
+        <h1 class="title">
+          <span class="bold">Property</span><span class="highlight">Connect</span>
+        </h1>
+      </div>
+
+
+      <!-- Reminder -->
+      <div class="section-title" *ngIf="appointment && !loading">Reminder</div>
+
+      <div class="reminder-card" *ngIf="appointment && !loading">
+        <!-- Top Row: Name + Role & Image -->
+        <div class="top-row">
+          <div class="info">
+            <h2>{{appointment.professionalName}}</h2>
+            <p class="role">{{professional.type | titlecase}}</p>
+          </div>
+          <img [src]="appointment.professionalUrl" alt="Amit Mitra" class="profile-img" />
+        </div>
+
+        <!-- Middle Row: Date & Time -->
+        <div class="date-time-row">
+          <div class="date-time-item">
+            <img src="assets/appointment/date-white.svg" />
+            <span>{{appointment.appointmentDate}}</span>
+          </div>
+          <div class="date-time-item">
+            <img src="assets/appointment/time-white.svg" />
+            <span>{{appointment.appointmentTime}}</span>
+          </div>
+        </div>
+
+        <!-- Action -->
+        <div class="action-buttons">
+          <button class="reschedule" (click)="goToAppointment()">View Appointment</button>
+        </div>
+      </div>
+
+
+      <div class="section-row" *ngIf="!loading">
+        <div class="section-title">Popular Consultants</div>
+        <div class="see-all" (click)="toBrowse()">See all</div>
+      </div>
+
+
+      <div class="horizontal-scroll" *ngIf="!loading">
+        <div class="consultant-card" *ngFor="let consultant of consultants" (click)="toProfessionalProfile(consultant.email)">
+          <div class="image-wrapper">
+            <img [src]="consultant.url" alt="Consultant Photo" />
+          </div>
+          <h3>{{ consultant.firstName }} {{ consultant.lastName }}</h3>
+          <div class="role">{{ consultant.type | titlecase }}</div>
+          <div class="rating">
+            <img src="assets/star-filled.svg" alt="Star" />
+            {{ consultant.averageRating }}
+            <span class="fee">(LKR {{ consultant.consultationFee }})</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Official Officers -->
+      <div class="section-row" *ngIf="!loading">
+        <div class="section-title">Area Officials</div>
+        <div class="see-all" (click)="toOfficialBrowse()">See all</div>
+      </div>
+
+      <div class="horizontal-scroll" *ngIf="!loading">
+        <div class="consultant-card" *ngFor="let official of officials" (click)="toOfficialProfile(official.id)">
+          <div class="image-wrapper">
+            <img src="assets/official/profile-image.svg" alt="Official Photo" />
+          </div>
+          <h3>{{ official.firstName }} {{ official.lastName }}</h3>
+          <div class="role" style="margin-top: 5%;">{{ official.type | customTitlecase  }}</div>
+          <div class="location">
+            {{ official.district }}, {{ official.province }}
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Official Officers -->
+      <div class="section-row" *ngIf="!loading">
+        <div class="section-title">Land Registry Locations</div>
+        <div class="see-all" (click)="toRegistryBrowse()">See all</div>
+      </div>
+
+      <div class="horizontal-scroll" *ngIf="!loading" style="margin-bottom: 22vw;">
+        <div class="consultant-card" style="width: 65vw;" *ngFor="let registry of registries" (click)="toRegistryProfile(registry.locationName)">
+          <div class="image-wrapper">
+            <img src="assets/land/registryPicture.svg" alt="Official Photo" />
+          </div>
+          <h3>{{ registry.locationName }}</h3>
+          <div class="role" style="margin-top: 5%;">{{ registry.contactNumber }}</div>
+          <div class="location">
+            {{ registry.district }}, {{ registry.province }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+<app-bottom-tab></app-bottom-tab>
+
+</ion-content>

@@ -1,0 +1,70 @@
+<ion-content [fullscreen]="true" class="notifications-container">
+  <div class="header">
+    <ion-icon src="assets/icons/back.svg" class="back-icon"></ion-icon>
+    <h1>Notifications</h1>
+    <!-- Optional right space for symmetry -->
+    <div class="spacer"></div>
+  </div>
+
+  <!-- Shimmer Loading -->
+  <div *ngIf="isLoading" class="shimmer-wrapper">
+    <div class="shimmer-card" *ngFor="let _ of placeholders"></div>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!isLoading" class="content">
+    <div class="section">
+      <div class="section-header">
+        <h2>Today</h2>
+        <span class="mark-read">Mark all as read</span>
+      </div>
+
+      <div class="notification-card" *ngFor="let item of todayNotifications" [ngClass]="item.type">
+        <div class="icon-circle">
+          <ion-icon [src]="item.icon"></ion-icon>
+        </div>
+        <div class="text">
+          <p class="title">{{ item.title }}</p>
+          <p class="message">{{ item.message }}</p>
+        </div>
+        <span class="time">{{ item.time }}</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <h2>Yesterday</h2>
+        <span class="mark-read">Mark all as read</span>
+      </div>
+
+      <div class="notification-card" *ngFor="let item of yesterdayNotifications" [ngClass]="item.type">
+        <div class="icon-circle">
+          <ion-icon [src]="item.icon"></ion-icon>
+        </div>
+        <div class="text">
+          <p class="title">{{ item.title }}</p>
+          <p class="message">{{ item.message }}</p>
+        </div>
+        <span class="time">{{ item.time }}</span>
+      </div>
+    </div>
+  </div>
+
+  <app-bottom-tab></app-bottom-tab>
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

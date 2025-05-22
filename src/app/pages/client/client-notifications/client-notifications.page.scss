@@ -1,0 +1,322 @@
+.notifications-container {
+    --background: #f9fafb;
+    font-family: 'Manrope', sans-serif;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+  
+    ion-content {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+  
+    ion-content::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(1rem, 4vw, 2rem) 0;
+  
+    h1 {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 600;
+      color: #1e1e2f;
+      margin: 0;
+    }
+  
+    .back-icon {
+      width: clamp(1.4rem, 4vw, 1.8rem);
+      height: clamp(1.4rem, 4vw, 1.8rem);
+      color: #1e1e2f;
+    }
+  
+    .spacer {
+      width: clamp(1.4rem, 4vw, 1.8rem);
+    }
+  }
+  
+  .section {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+  
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: clamp(0.6rem, 2vw, 1rem);
+  
+      h2 {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        font-weight: 600;
+        color: #6b7280;
+        margin: 0;
+      }
+  
+      .mark-read {
+        font-size: clamp(0.8rem, 2vw, 1rem);
+        color: #2196f3;
+        cursor: pointer;
+      }
+    }
+  
+    .notification-card {
+      display: flex;
+      align-items: flex-start;
+      background-color: #ffffff;
+      border-radius: 1rem;
+      padding: clamp(0.8rem, 2vw, 1.2rem);
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      gap: 1rem;
+      animation: fadeIn 0.3s ease-in-out;
+  
+      &.success .icon-circle {
+        background-color: #e6fce6;
+      }
+  
+      &.cancel .icon-circle {
+        background-color: #fdeaea;
+      }
+  
+      &.schedule .icon-circle {
+        background-color: #f3f4f6;
+      }
+  
+      .icon-circle {
+        width: clamp(2.8rem, 7vw, 3.2rem);
+        height: clamp(2.8rem, 7vw, 3.2rem);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+        ion-icon {
+          width: 1.4rem;
+          height: 1.4rem;
+        }
+      }
+  
+      .text {
+        flex: 1;
+  
+        .title {
+          font-weight: 600;
+          font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+          color: #1f2937;
+          margin-bottom: 0.2rem;
+        }
+  
+        .message {
+          font-size: clamp(0.85rem, 2vw, 1rem);
+          color: #6b7280;
+        }
+      }
+  
+      .time {
+        font-size: clamp(0.75rem, 2vw, 0.85rem);
+        color: #9ca3af;
+        white-space: nowrap;
+      }
+    }
+  }
+  
+  // Shimmer placeholder styles
+  .shimmer-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  
+    .shimmer-card {
+      height: 4.5rem;
+      border-radius: 1rem;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e6e6e6 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+// Great! Below is a complete shimmer loader component and how to add interactive swipe-to-dismiss functionality for notifications using Angular and Ionic gestures. This makes your notification screen modern, interactive, and polished.
+
+// ✅ Part 1: Shimmer Loader Component
+// 📁 shimmer-loader.component.ts
+// ts
+// Copy
+// Edit
+// import { Component } from '@angular/core';
+
+// @Component({
+//   selector: 'app-shimmer-loader',
+//   templateUrl: './shimmer-loader.component.html',
+//   styleUrls: ['./shimmer-loader.component.scss'],
+// })
+// export class ShimmerLoaderComponent {}
+// 📁 shimmer-loader.component.html
+// html
+// Copy
+// Edit
+// <div class="shimmer-wrapper">
+//   <div class="shimmer-card" *ngFor="let i of [1,2,3,4]">
+//     <div class="shimmer-icon"></div>
+//     <div class="shimmer-text">
+//       <div class="line title"></div>
+//       <div class="line subtitle"></div>
+//     </div>
+//   </div>
+// </div>
+// 📁 shimmer-loader.component.scss
+// scss
+// Copy
+// Edit
+// .shimmer-wrapper {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 1.25rem;
+//   padding: 1rem;
+//   background: #f9fafb;
+// }
+
+// .shimmer-card {
+//   display: flex;
+//   align-items: center;
+//   background: #ffffff;
+//   border-radius: 1rem;
+//   padding: 1rem;
+//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+//   overflow: hidden;
+// }
+
+// .shimmer-icon {
+//   width: clamp(40px, 10vw, 60px);
+//   height: clamp(40px, 10vw, 60px);
+//   border-radius: 50%;
+//   background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+//   background-size: 200% 100%;
+//   animation: shimmer 1.2s infinite;
+//   flex-shrink: 0;
+// }
+
+// .shimmer-text {
+//   flex: 1;
+//   margin-left: 1rem;
+// }
+
+// .line {
+//   height: clamp(10px, 1.5vw, 14px);
+//   background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+//   background-size: 200% 100%;
+//   animation: shimmer 1.2s infinite;
+//   border-radius: 6px;
+//   margin-bottom: 0.5rem;
+// }
+
+// .title {
+//   width: 70%;
+// }
+
+// .subtitle {
+//   width: 90%;
+// }
+
+// @keyframes shimmer {
+//   0% {
+//     background-position: -200% 0;
+//   }
+//   100% {
+//     background-position: 200% 0;
+//   }
+// }
+// ✅ Part 2: Swipe-to-Dismiss (Gesture)
+// Add this to your notifications.page.ts:
+
+// ts
+// Copy
+// Edit
+// dismissNotification(group: string, index: number) {
+//   if (group === 'today') {
+//     this.todayNotifications.splice(index, 1);
+//   } else {
+//     this.yesterdayNotifications.splice(index, 1);
+//   }
+// }
+// Update notification card in your notifications.page.html:
+
+// html
+// Copy
+// Edit
+// <ion-card
+//   *ngFor="let item of todayNotifications; let i = index"
+//   [@swipeDismiss]
+//   class="notification-card"
+//   (swipeleft)="dismissNotification('today', i)"
+// >
+//   <!-- your card content -->
+// </ion-card>
+// Do the same for yesterdayNotifications.
+
+// ✅ App Module Update
+// Add ShimmerLoaderComponent to your declarations, and also import BrowserAnimationsModule in your app module:
+
+// ts
+// Copy
+// Edit
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// @NgModule({
+//   declarations: [AppComponent, ShimmerLoaderComponent],
+//   imports: [BrowserAnimationsModule, ...],
+// })
+// ✨ Result: Clean, Modern Notifications Screen
+// 🌀 Shimmer effect while loading.
+
+// 💨 Swipe to dismiss with animation.
+
+// 🧼 Clean margins, font scaling with clamp(), SVG-based icons.
+
+// 🤳 Scrolls without scrollbars on any device.
+
+// Would you like me to zip all files or show a preview with all files combined in one view?

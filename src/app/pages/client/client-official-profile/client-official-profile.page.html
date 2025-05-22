@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true">
+    <div class="edit-profile-container">
+      <div class="header-row">
+        <div class="back-button left" (click)="prev()">
+          <img src="../../../assets/back-btn.svg" alt="Back" />
+        </div>
+        <h1 class="page-title">Official Details</h1>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <img src="assets/official/profile-image.svg" alt="Lawyer" class="lawyer-image" />
+    </div>
+
+    <div class="details-section">
+      <h2 class="lawyer-name">{{ lawyer.firstName}} {{ lawyer.lastName}}</h2>
+      <div class="verified-badge-container">
+        <span class="verified-badge">
+           Verified {{ lawyer.type | customTitlecase}}
+        </span>
+      </div>
+
+      <div class="about-doctor">
+        <h3>Id</h3>
+        <p>LKR {{ lawyer.id }}</p>
+      </div>
+
+      <div class="about-doctor">
+        <h3>Contact Number</h3>
+        <p>{{ lawyer.phone }}</p>
+      </div>
+
+      <div class="about-doctor">
+        <h3>District</h3>
+        <p>{{ lawyer.district }}</p>
+      </div>
+
+      <div class="about-doctor">
+        <h3>Province</h3>
+        <p>{{ lawyer.province }}</p>
+      </div>
+    </div>
+</ion-content>

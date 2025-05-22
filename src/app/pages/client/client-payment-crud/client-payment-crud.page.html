@@ -1,0 +1,83 @@
+<ion-content class="edit-profile-wrapper ion-padding" [fullscreen]="true">
+  <div class="edit-profile-container">
+    <div class="header-row">
+      <div class="back-button" (click)="prev()">
+        <img src="../../../assets/back-btn.svg" alt="Back" />
+      </div>
+      <h1 class="page-title">Add Payment</h1>
+    </div>
+
+    <form [formGroup]="form" class="payment-form" (ngSubmit)="submitCard()">
+      <!-- Card Number Field -->
+      <div>
+        <input
+          type="text"
+          placeholder="Card Number"
+          formControlName="cardNumber"
+          maxlength="19"
+          (input)="onCardNumberInput($event)"
+        />
+        <div *ngIf="form.get('cardNumber')?.invalid && form.get('cardNumber')?.touched" class="error-text">
+          Enter a valid 16-digit card number.
+        </div>
+      </div>
+
+      <div class="split-row">
+       <!-- CVV Field -->
+      <div>
+        <input
+          type="text"
+          placeholder="CVV"
+          formControlName="cvv"
+          (keydown)="blockNonDigits($event)"
+          maxlength="4"
+          (input)="onCvvInput($event)"
+        />
+        <div *ngIf="form.get('cvv')?.invalid && form.get('cvv')?.touched" class="error-text">
+          Invalid CVV.
+        </div>
+      </div>
+        <div>
+          <input
+            type="text"
+            placeholder="MM/YY"
+            formControlName="expiry"
+            maxlength="5"
+            (keydown)="blockNonDigits($event)"
+            (input)="onExpiryInput($event)"
+            (blur)="onExpiryBlur()"
+          />
+          <div *ngIf="form.get('expiry')?.invalid && form.get('expiry')?.touched" class="error-text">
+            Use MM/YY format.
+          </div>
+        </div>
+        
+      </div>
+
+      <input
+        type="text"
+        placeholder="Cardholder Name"
+        formControlName="cardHolderName"
+      />
+      <div *ngIf="form.get('cardHolderName')?.invalid && form.get('cardHolderName')?.touched" class="error-text">
+        Name is required.
+      </div>
+
+      <div class="button-group">
+        <div class="selection-buttons">
+          <button
+            class="load-button"
+            expand="block"
+            type="submit"
+            (click)="submitCard()"
+          >
+            <div class="btn-inner">
+              <span *ngIf="!isSubmitting">Submit</span>
+              <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

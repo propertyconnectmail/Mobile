@@ -1,0 +1,42 @@
+<ion-content class="review-wrapper" [fullscreen]="true">
+  <div class="review-flex-wrapper">
+    <div class="review-container">
+      <h2>Leave a Review</h2>
+
+      <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+        <!-- Star Rating -->
+        <div class="rating-stars">
+          <ng-container *ngFor="let star of stars; let i = index">
+            <span class="star" [class.filled]="i < reviewForm.get('rating')?.value" (click)="setRating(i + 1)">★</span>
+          </ng-container>
+        </div>
+
+        <!-- Message -->
+        <textarea
+          formControlName="message"
+          placeholder="Write your feedback here..."
+          rows="4"
+        ></textarea>
+
+        <div class="button-group">
+          <div class="selection-buttons">
+            <button
+              class="load-button"
+              expand="block"
+              type="submit"
+              [disabled]="isSubmitting"
+            >
+              <div class="btn-inner">
+                <span *ngIf="!isSubmitting">Submit Review</span>
+                <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Skip -->
+        <div class="skip-link" (click)="skipReview()">Skip for now</div>
+      </form>
+    </div>
+  </div>
+</ion-content>

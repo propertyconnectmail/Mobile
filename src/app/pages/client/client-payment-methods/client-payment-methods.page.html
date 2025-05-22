@@ -1,0 +1,44 @@
+<ion-content class="edit-profile-wrapper ion-padding" [fullscreen]="true">
+  <div class="edit-profile-container">
+
+    <!-- Header row with back button and title -->
+    <div class="header-row">
+      <div class="back-button" (click)="prev()">
+        <img src="/assets/back-btn.svg" alt="Back" />
+      </div>
+      <h1 class="page-title">Payment Methods</h1>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="cards-section" *ngIf="paymentCards.length > 0; else noCards">
+      <div
+        class="card-item"
+        *ngFor="let card of paymentCards"
+        (click)="cardUpdate(card.cardNumber)"
+        >
+        <div class="card-info">
+          <img src="assets/icon/card.svg" alt="Card" class="card-logo" />
+          <span class="masked">* * * * &nbsp; * * * * &nbsp; * * * *  &nbsp; {{ card.last4 }}</span>
+        </div>
+        <div class="arrow-icon">
+          <img src="assets/icon/card-arrow.svg" alt="Go" />
+        </div>
+      </div>
+    </div>
+
+    <!-- No Cards Template -->
+    <ng-template #noCards>
+      <div class="no-cards">
+        <img src="assets/profile/payment-methods-none.svg">
+        <p>No payment methods yet.</p>
+        <span>Add one to get started!</span>
+      </div>
+    </ng-template>
+
+    <!-- Add Card Button -->
+    <div class="add-card-button" (click)="cardAdd()">
+      <div class="plus-icon">+</div>
+    </div>
+
+  </div>
+</ion-content>

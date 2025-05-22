@@ -1,0 +1,85 @@
+<ion-content [fullscreen]="true">
+    <div class="edit-profile-container">
+      <div class="header-row">
+        <div class="back-button left" (click)="prev()">
+          <img src="../../../assets/back-btn.svg" alt="Back" />
+        </div>
+        <h1 class="page-title">{{lawyer.type | titlecase}} Detail</h1>
+        <div class="back-button right">
+          <img src="assets/professional/professional-favourites.svg" alt="Favorite" /> 
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <img [src]="lawyer.url" alt="Lawyer" class="lawyer-image" />
+
+      <div class="stats">
+        <div class="stat">
+          <img src="assets/professional/professional-heart.svg" alt="Consults" />
+          <span class="stat-number">{{ lawyer.consults }}+</span>
+          <span class="stat-label">Consults</span>
+        </div>
+        <div class="stat">
+          <img src="assets/professional/professional-crown.svg" alt="Experience" />
+          <span class="stat-number">{{ lawyer.experience }} years</span>
+          <span class="stat-label">Experience</span>
+        </div>
+        <div class="stat">
+          <img src="assets/professional/professional-star.svg" alt="Rating" />
+          <span class="stat-number">{{ lawyer.averageRating }}</span>
+          <span class="stat-label">Rating</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h2 class="lawyer-name">{{ lawyer.firstName }} {{ lawyer.lastName }}</h2>
+      <div class="verified-badge-container" *ngIf="lawyer.status === 'verified'">
+        <span class="verified-badge">
+          ✔ {{ (lawyer.status + ' ' + lawyer.type) | titlecase }}
+        </span>
+      </div>
+
+      <div class="about-doctor">
+        <h3>About Professional</h3>
+        <p>{{ lawyer.about }}</p>
+      </div>
+
+      <div class="about-doctor">
+        <h3>Consultation Fee</h3>
+        <p>LKR {{ lawyer.consultationFee }}</p>
+      </div>
+
+      <div class="recent-comments">
+        <div class="comments-header">
+          <h3>Recent comments</h3>
+          <a class="see-all" (click)="toAllReviews">See All</a>
+        </div>
+
+        <div class="comment-card" *ngIf="review.length > 0">
+          <div class="comment-header">
+            <img [src]="review[0].clientUrl" alt="User" class="user-avatar" />
+            <div class="user-info">
+              <p class="username">{{review[0].clientName | titlecase}}</p>
+            </div>
+            <div class="comment-rating">
+              <app-star-rating [rating]="review[0].rating"></app-star-rating>
+            </div>
+          </div>
+
+          <div class="comment-body">
+            <p [class.expanded]="isExpanded" class="comment-text">
+              {{review[0].message}}
+            </p>
+            <p class="comment-date">{{review[0].date}}</p>
+            <button *ngIf="!isExpanded" (click)="expandComment()" class="read-more-btn">Read More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</ion-content>
+
+<div class="custom-footer" (click)="goToAppointmentCreation()">
+  <button class="appointment-button">Get Appointment</button>
+</div>

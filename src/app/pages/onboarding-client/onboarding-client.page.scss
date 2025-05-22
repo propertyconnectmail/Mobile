@@ -1,0 +1,284 @@
+ion-content {
+  --background: linear-gradient(to bottom, #E8F4FF 0%, #FFFFFF 100%);
+  overflow: hidden;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  letter-spacing: 0.6px;
+  font-family: 'Manrope', sans-serif;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }  
+}
+
+
+.gradient-background {
+    --background: linear-gradient(to bottom, #E8F4FF 0%, #FFFFFF 100%);
+  }
+
+
+  .back-button {
+    position: absolute;
+    top: clamp(28px, 4vw, 36px);
+    left: clamp(18px, 4vw, 26px);
+    width: clamp(42px, 6vw, 50px);
+    height: clamp(42px, 6vw, 50px);
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+    cursor: pointer;
+    will-change: transform;
+    margin-top: 3%;
+  
+    &:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      animation: bounceClick 0.3s ease-in-out;
+    }
+  
+    img {
+      width: clamp(16px, 4vw, 24px);
+      height: clamp(16px, 4vw, 24px);
+    }
+  }
+
+
+  @keyframes bounceClick {
+    0% {
+      transform: scale(1);
+      background-color: #ffffff;
+    }
+    50% {
+      transform: scale(0.95);
+      background-color: #e6f0ff; // subtle blue highlight
+    }
+    100% {
+      transform: scale(1);
+      background-color: #ffffff;
+    }
+  }
+  
+  
+  .slide-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 40px 24px;
+    box-sizing: border-box;
+  }
+
+  .half {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .illustration {
+    width: 100%;
+    max-width: 320px;
+    margin-top: 30%;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  /* Float animation for image */
+  @keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
+    font-weight: 700;
+    color: #111827;
+    margin-top: 20%;
+    text-align: center;
+  }
+  
+  .description {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(0.9rem, 4vw, 1rem);
+    color: #6B7280;
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: 10%;
+    max-width: 340px;
+  }
+  
+  .dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20%;
+  }
+  
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #B7E0F9;
+  }
+  
+  .dot.active {
+    background-color: var(--ion-color-primary);
+  }
+  
+  .button-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .selection-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 0 16px;
+  
+    button {
+      position: relative;
+      overflow: hidden; // for ripple containment
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(18px, 2vw, 20px);
+      font-weight: 600;
+      height: 50px;
+      margin-bottom: 5%;
+      color: #FFFFFF;
+      height: 60px;
+      background: #18A0FB;
+      letter-spacing: 0.6px;
+      padding: 14px 24px;
+      border: 1px solid #18A0FB;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+  
+      &:active {
+        transform: translateY(2px) scale(0.98);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
+      }
+  
+      &:hover {
+        opacity: 0.8;
+        color: white;
+      }
+  
+      // Ripple span
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 600ms linear;
+        background-color: rgba(0, 123, 255, 0.3);
+        pointer-events: none;
+      }
+    }
+}
+
+
+// Ripple animation
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+.onboarding-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.4s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 0;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 1;
+  }
+
+  &.fade-enter-right {
+    animation: slideInFromRight 0.4s ease forwards;
+  }
+  &.fade-leave-left {
+    animation: slideOutToLeft 0.4s ease forwards;
+  }
+  &.fade-enter-left {
+    animation: slideInFromLeft 0.4s ease forwards;
+  }
+  &.fade-leave-right {
+    animation: slideOutToRight 0.4s ease forwards;
+  }
+}

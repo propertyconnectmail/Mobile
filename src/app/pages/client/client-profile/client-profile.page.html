@@ -1,0 +1,29 @@
+<ion-content [fullscreen]="true" class="profile-content ion-padding">
+  <div class="profile-container">
+    <h2 class="title">Profile Management</h2>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+      <img class="profile-image" [src]="imageUrl" alt="User Photo" />
+      <h3 class="username">{{ name }}</h3>
+      <p class="email">{{ email }}</p>
+    </div>
+
+    <!-- Settings List -->
+    <div class="settings-list">
+      <div class="setting-item" *ngFor="let item of profileOptions" (click)="onOptionClick(item)">
+        <img [src]="item.icon" class="item-icon" alt="Icon" />
+        <span class="item-label">{{ item.label }}</span>
+        <img src="assets/profile/arrow-right.svg" class="arrow-icon" alt="Arrow" />
+      </div>
+    </div>
+
+    <!-- Logout -->
+    <button class="logout-button" (click)="onLogout()">
+      <img src="assets/profile/profile-logout.svg" alt="Logout Icon" />
+      Log Out
+    </button>
+  </div>
+
+  <app-bottom-tab></app-bottom-tab>
+</ion-content>

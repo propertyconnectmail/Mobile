@@ -1,0 +1,72 @@
+<ion-content class="browse-consultants">
+  <!-- Sticky Top Section -->
+  <div class="top-section">
+    <!-- Header -->
+    <div class="header">
+      <div class="left-section">
+        <h1>All Appointments</h1>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <img src="assets/search.svg" alt="Search" class="search-icon" />
+      <input
+        type="text"
+        placeholder="Search by professional name"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+      />
+    </div>
+
+    <!-- Category Scroll -->
+    <div class="category-scroll">
+      <button
+        *ngFor="let category of categories"
+        class="category-button"
+        [class.active]="selectedCategory === category.value"
+        (click)="selectCategory(category.value)"
+      >
+        {{ category.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Skeleton Shimmer Loader -->
+  <div *ngIf="isLoading" class="appointments-list shimmer">
+    <div class="appointment-card shimmer-card" *ngFor="let skeleton of skeletonArray"></div>
+  </div>
+
+  <!-- Real Appointment Cards -->
+  <div *ngIf="!isLoading" class="appointments-list">
+    <div class="appointment-card" *ngFor="let appointment of filteredAppointments">
+      <div class="profile-section">
+        <img [src]="appointment.professionalUrl" alt="Doctor" class="profile-img" />
+        <div class="profile-info">
+          <h2>{{ appointment.professionalName }}</h2>
+          <p>{{ appointment.appointmentId }}</p>
+        </div>
+      </div>
+      <div class="appointment-details">
+        <div class="detail-item">
+          <img src="assets/appointment/calendar.svg" alt="Calendar" />
+          <span>{{ appointment.appointmentDate }}</span>
+        </div>
+        <div class="detail-item">
+          <img src="assets/appointment/clock.svg" alt="Clock" />
+          <span>{{ appointment.appointmentTime }}</span>
+        </div>
+      </div>
+      <div class="detail-button" (click)="goToAppointment(appointment.appointmentId)">Detail</div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && filteredAppointments.length === 0" class="empty-state">
+    <img src="assets/appointment/empty-calendar.svg" alt="No Appointments" />
+    <p>No appointments yet go ahead and browse a professional and book an appointment.</p>
+  </div>
+
+
+  <app-bottom-tab></app-bottom-tab>
+</ion-content>

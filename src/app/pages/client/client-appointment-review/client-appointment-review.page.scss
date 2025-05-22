@@ -1,0 +1,180 @@
+  .review-wrapper {
+    --background: #f9fafb;
+
+        .review-flex-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 5% 6%;
+        }
+    }
+
+
+  .review-container {
+    font-family: 'Manrope', sans-serif;
+    width: 100%;
+    max-width: 500px;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+    h2 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #1f2937;
+    }
+
+    .rating-stars {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+
+      .star {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+
+        &.filled {
+            color: #facc15;
+        }
+    }
+
+    }
+
+    textarea {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 1rem;
+      font-family: 'Manrope', sans-serif;
+      resize: none;
+      background: #f3f4f6;
+      color: #111827;
+      margin-bottom: 1.2rem;
+    }
+
+    .button-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 5%;
+    }
+
+    .selection-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+
+        button {
+            position: relative;
+            overflow: hidden; // for ripple containment
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(18px, 2vw, 20px);
+            font-weight: 600;
+            color: #FFFFFF;
+            background: #18A0FB;
+            margin-top: 5%;
+            letter-spacing: 0.6px;
+            padding: 14px 24px;
+            border: 1px solid #18A0FB;
+            border-radius: 16px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 55px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        
+            &:active {
+                transform: translateY(2px) scale(0.98);
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
+            }
+        
+            // Spinner Styles
+            .btn-inner {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+        
+            .spinner {
+                margin: 0;
+                width: 22px;
+                height: 22px;
+                display: inline-block;
+                border-radius: 50%;
+                animation: spin 0.6s linear infinite;
+                box-sizing: border-box;
+                opacity: 1;
+                transform: scale(1);
+            }
+        
+            // Adjusted spinner sizes
+            .spinner-sm { width: 16px; height: 16px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+            .spinner-md { width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+            .spinner-lg { width: 28px; height: 28px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+            .spinner-xl { width: 36px; height: 36px; border: 4px solid rgba(255, 255, 255, 0.4); border-top: 4px solid white; }
+        
+            // Modifier: dark spinner for light backgrounds
+            .spinner-dark {
+                border-color: rgba(0, 0, 0, 0.1);
+                border-top-color: #333;
+            }
+        
+            // Ripple effect
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 600ms linear;
+                background-color: rgba(0, 123, 255, 0.3);
+                pointer-events: none;
+            }
+        
+            // Button hover, active, and disabled states
+            &:hover {
+                background-color: #1579C8;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            }
+        
+            &:active {
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        // Spinner animation (as per your provided code)
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        // Ripple keyframe animation
+        @keyframes ripple {
+            to {
+            transform: scale(4);
+            opacity: 0;
+            }
+        }  
+    }
+
+    .skip-link {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #6b7280;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }

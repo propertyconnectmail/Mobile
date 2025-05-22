@@ -1,0 +1,40 @@
+<ion-content class="login-screen ion-padding" [fullscreen]="true">
+
+  <div class="back-button" (click)="prev()">
+    <img src="../../../assets/back-btn.svg" alt="Back" />
+  </div>
+
+  <div class="login-container">
+    <img src="assets/logo/logo.svg" alt="App Logo" class="logo" />
+    <h1>Email Authentication</h1>
+    <p class="welcome-subtitle">Check your email for a six digit code to continue</p>
+
+    <form (ngSubmit)="onValidation()" [formGroup]="validationForm" class="login-form">
+      <div class="input-group">
+        <label>Email Code <span> *</span></label>
+        <input type="number" formControlName="code" placeholder="Enter you verification code" />
+        <div class="error-text" *ngIf="validationForm.get('code')?.invalid && validationForm.get('code')?.touched">
+          Email code should be 6 digits
+        </div>
+      </div>
+      
+      <div class="button-group">
+        <div class="selection-buttons">
+          <button
+            class="load-button"
+            expand="block"
+            type="submit"
+            [disabled]="isSubmitting"
+            (click)="onValidation()"
+          >
+            <div class="btn-inner">
+              <span *ngIf="!isSubmitting">Validate Code</span>
+              <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+</ion-content>

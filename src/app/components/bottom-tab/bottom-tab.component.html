@@ -1,0 +1,51 @@
+<div class="bottom-menu">
+  <div 
+    class="menu-item" 
+    [class.active]="isActive('/client-home')" 
+    (click)="navigate('/client-home')"
+  >
+    <img src="assets/icon/HomeIcon.svg" alt="Home" />
+    <span>Home</span>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+
+  <div 
+    class="menu-item" 
+    [class.active]="isActive('/client-browse')" 
+    (click)="navigate('/client-browse')"
+  >
+    <img src="assets/icon/SearchIcon.svg" alt="Browse" />
+    <span>Browse</span>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+
+  <div 
+    class="menu-item" 
+    [class.active]="isActive('/client-all-appointments')" 
+    (click)="navigate('/client-all-appointments')"
+  >
+    <img src="assets/icon/AppointmentOutlinedIcon.svg" alt="Appointments" />
+    <span>Appointments</span>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+
+  <!-- <div 
+    class="menu-item" 
+    [class.active]="isActive('/client-notifications')" 
+    (click)="navigate('/client-notifications')"
+  >
+    <img src="assets/icon/NotificationIcon.svg" alt="Alerts" />
+    <span>Alerts</span>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div> -->
+
+  <div 
+    class="menu-item" 
+    [class.active]="isActive('/client-profile')" 
+    (click)="navigate('/client-profile')"
+  >
+    <img src="assets/icon/ProfileIcon.svg" alt="Profile" />
+    <span>Profile</span>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+</div>

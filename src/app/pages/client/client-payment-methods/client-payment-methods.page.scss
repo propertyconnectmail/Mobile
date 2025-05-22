@@ -1,0 +1,172 @@
+.edit-profile-wrapper {
+    --background: #f9fafb;
+  
+    .edit-profile-container {
+      padding: clamp(16px, 5vw, 32px);
+      font-family: 'Manrope', sans-serif;
+      color: #1f2937;
+      padding-top: 10vw;
+      padding-bottom: 15vw;
+  
+      .header-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin-bottom: clamp(24px, 5vw, 32px);
+  
+        .back-button {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: clamp(42px, 6vw, 50px);
+          height: clamp(42px, 6vw, 50px);
+          background-color: #ffffff;
+          border-radius: 50%;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: box-shadow 0.3s ease, transform 0.2s ease;
+          z-index: 10;
+          cursor: pointer;
+  
+          &:active {
+            transform: translateY(-50%) scale(0.97);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            animation: bounceClick 0.3s ease-in-out;
+          }
+  
+          img {
+            width: clamp(16px, 4vw, 24px);
+            height: clamp(16px, 4vw, 24px);
+          }
+        }
+  
+        .page-title {
+          font-size: clamp(20px, 5vw, 24px);
+          font-weight: 700;
+          text-align: center;
+          margin: 0;
+        }
+      }
+    }
+
+    .cards-section {
+      font-family: 'Manrope', sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 20%;
+      
+        .card-item {
+          background-color: #fff;
+          border-radius: 12px;
+          padding: 16px 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          transition: transform 0.2s ease;
+      
+          &:active {
+            transform: scale(0.98);
+          }
+      
+          .card-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+      
+            .masked {
+              font-size: 16px;
+              font-weight: 600;
+              color: #111827;
+            }
+      
+            .card-logo {
+              height: 24px;
+              width: auto;
+              margin-right: 10px;
+            }
+          }
+      
+          .arrow-icon {
+            img {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+      
+      .no-cards {
+        font-family: 'Manrope', sans-serif;
+        height: 80vh; /* Full screen height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Vertical center */
+        align-items: center;     /* Horizontal center */
+        text-align: center;
+        padding: 0 24px; /* Optional: for horizontal padding on smaller screens */
+      
+        img {
+          width: 50%;
+          height: auto; /* Maintain aspect ratio */
+          margin-bottom: 24px;
+        }
+      
+        p {
+          font-size: 16px;
+          font-weight: 600;
+          color: #4b5563;
+          margin-bottom: 6px;
+        }
+      
+        span {
+          font-size: 14px;
+          color: #6b7280;
+        }
+      }
+      
+      
+      .add-card-button {
+        position: fixed;
+        bottom: clamp(16px, 4vh, 32px);
+        right: clamp(16px, 4vw, 32px);
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        width: clamp(48px, 10vw, 56px);
+        height: clamp(48px, 10vw, 56px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: #18A0FB;
+        cursor: pointer;
+        z-index: 20;
+      
+        .plus-icon {
+          font-weight: 700;
+          transform: translateY(-2px);
+        }
+      
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+      
+  
+    ion-content {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+  
+    ion-content::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  

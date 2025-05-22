@@ -1,0 +1,105 @@
+<ion-content [fullscreen]="true" class="gradient-background ion-padding onboarding-screen" [ngClass]="getScreenClass(1)">
+
+  <div class="back-button" (click)="prev()">
+    <img src="../../../assets/back-btn.svg" alt="Back" />
+  </div>
+  
+  <ion-slides>
+    <ion-slide>
+      <div class="slide-content">
+        <div class="half">
+          <ion-img src="/assets/onboarding/professional/professional-welcome.svg" class="illustration" alt="Slide Image"></ion-img>
+        </div>
+
+        <h2 class="title">Welcome to Property Connect!</h2>
+
+        <p class="description">Join a growing network of professionals delivering exceptional services</p>
+
+        <div class="dots">
+          <div class="dot active">
+          </div>
+          <div class="dot">
+          </div>
+          <div class="dot">
+          </div>
+        </div>
+
+        <div class="button-group">
+          <div class="selection-buttons">
+            <button (click)="nextSlide()">Get Started</button>
+          </div>      
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+
+<ion-content [fullscreen]="true" class="gradient-background ion-padding onboarding-screen" [ngClass]="getScreenClass(2)">
+  <div class="back-button" (click)="prevSlide()">
+    <img src="../../../assets/back-btn.svg" alt="Back" />
+  </div>
+  <ion-slides>
+    <ion-slide>
+      <div class="slide-content">
+        <div class="half">
+          <ion-img src="/assets/onboarding/professional/professional-manage-schedule.svg" class="illustration" alt="Slide Image"></ion-img>
+        </div>
+
+        <h2 class="title">Manage Your Schedule</h2>
+
+        <p class="description">Stay on top of appointments and availability anytime, anywhere—right from your phone</p>
+
+        <div class="dots">
+          <div class="dot">
+          </div>
+          <div class="dot active">
+          </div>
+          <div class="dot">
+          </div>
+        </div>
+
+        <div class="button-group">
+          <div class="selection-buttons">
+            <button (click)="nextSlide()">Next</button>
+          </div>      
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+
+<ion-content [fullscreen]="true" class="gradient-background ion-padding onboarding-screen" [ngClass]="getScreenClass(3)">
+  <div class="back-button" (click)="prevSlide()">
+    <img src="../../../assets/back-btn.svg" alt="Back" />
+  </div>
+  <ion-slides>
+    <ion-slide>
+      <div class="slide-content">
+        <div class="half">
+          <ion-img src="/assets/onboarding/professional/professional-boost-reputation.svg" class="illustration" alt="Slide Image"></ion-img>
+        </div>
+
+        <h2 class="title">Boost Your Reputation</h2>
+
+        <p class="description">Showcase your certifications and collect client reviews to grow your professional presence</p>
+
+        <div class="dots">
+          <div class="dot">
+          </div>
+          <div class="dot">
+          </div>
+          <div class="dot active">
+          </div>
+        </div>
+
+        <div class="button-group">
+          <div class="selection-buttons">
+            <button (click)="toLogin()">Start Setup</button>
+          </div>      
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

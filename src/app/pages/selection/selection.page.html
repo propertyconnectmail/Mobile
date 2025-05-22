@@ -1,0 +1,33 @@
+<ion-content class="ion-padding " [fullscreen]="true">
+  <!-- Shimmer loader while loading -->
+  <div class="shimmer-container" *ngIf="isLoading">
+    <div class="shimmer title-shimmer"></div>
+    <div class="shimmer image-shimmer"></div>
+    <div class="shimmer text-shimmer short"></div>
+    <div class="shimmer text-shimmer long"></div>
+    <div class="shimmer button-shimmer"></div>
+    <div class="shimmer button-shimmer"></div>
+  </div>
+
+  <!-- Main content when loaded -->
+  <div class="content-wrapper" *ngIf="!isLoading">
+    <h1>Select Your Role</h1>
+
+    <img src="../../../assets/selection.svg" alt="Select Role" class="selection-image" />
+
+    <p class="description" style="margin-bottom: 5%;">
+      Choose <span class="highlight">Client</span> if you’re looking for property buying or selling advice.
+    </p>
+    <p class="description">
+      Choose <span class="highlight">Professional</span> if you offer real estate consultation services.
+    </p>
+
+    <div class="button-group">
+      <div class="selection-buttons">
+        <button (click)="selectRole('client')">Client</button>
+        <button (click)="selectRole('professional')">Professional</button>
+      </div>      
+    </div>
+  </div>
+</ion-content>
+

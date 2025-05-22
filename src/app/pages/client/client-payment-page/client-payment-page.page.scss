@@ -1,0 +1,364 @@
+ion-content {
+  --ion-background-color: #f9fafb;
+}
+
+.edit-profile-container {
+  font-family: 'Manrope', sans-serif;
+  color: #1a1a1a;
+  background-color: #f9fafb;
+  padding-top: 2%;
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: clamp(16px, 5vw, 32px);
+    padding-top: 10%;
+
+    .back-button {
+      position: absolute;
+      top: 60%;
+      transform: translateY(-50%);
+      width: clamp(42px, 6vw, 50px);
+      height: clamp(42px, 6vw, 50px);
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+      z-index: 10;
+      cursor: pointer;
+
+      &:active {
+        transform: translateY(-50%) scale(0.97);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        animation: bounceClick 0.3s ease-in-out;
+      }
+
+      img {
+        width: clamp(16px, 4vw, 24px);
+        height: clamp(16px, 4vw, 24px);
+      }
+    }
+
+    .left {
+      left: 6%;
+    }
+
+    .page-title {
+      font-size: clamp(20px, 5vw, 28px);
+      font-weight: 700;
+      text-align: center;
+      margin: 0;
+    }
+  }
+}
+
+  
+.lawyer-card {
+  font-family: 'Manrope', sans-serif;
+  background: #fff;
+  border-radius: 16px;
+  margin: 5% 6%;
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 5% 6%;
+
+  .lawyer-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .lawyer-info {
+    flex: 1;
+    h2 {
+      font-size: clamp(16px, 4vw, 18px);
+      color: #111928;
+      margin: 0;
+      font-weight: 600;
+    }
+    p {
+      font-size: clamp(12px, 3vw, 14px);
+      color: #6B7280;
+      margin: 4px 0 8px 0;
+    }
+    .lawyer-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      .appointment-btn {
+        background: #E0F2FE;
+        color: #0EA5E9;
+        font-weight: 500;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: clamp(10px, 2vw, 12px);
+      }
+      .price-tag {
+        background: #0EA5E9;
+        color: white;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: clamp(10px, 2vw, 12px);
+      }
+    }
+  }
+}
+  
+.cards-section {
+  font-family: 'Manrope', sans-serif;
+  margin-top: 24px;
+  padding: 5% 6%;
+
+  .cards-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    p {
+      font-size: clamp(18px, 4vw, 20px);
+      font-weight: 600;
+      color: #111928;
+      margin-left: 5px;
+    }
+    .card-icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .card-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, background 0.2s ease;
+
+      &:active {
+        transform: scale(0.98);
+      }
+
+      &.selected {
+        background: #E0F2FE;
+      }
+
+      .card-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        p {
+          font-size: clamp(14px, 4vw, 16px);
+          color: #111928;
+          font-weight: 500;
+
+          span {
+            margin-left: 6px;
+            font-weight: 400;
+            color: #6B7280;
+          }
+        }
+
+        .card-icon {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      .card-right {
+        .radio {
+          width: 20px;
+          height: 20px;
+          border: 2px solid #0EA5E9;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .inner-circle {
+            width: 10px;
+            height: 10px;
+            background: #0EA5E9;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      #f0f0f0 0%,
+      #e0e0e0 50%,
+      #f0f0f0 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmerMove 1.5s infinite;
+    height: 70px;
+    border-radius: 16px;
+  }
+  
+  @keyframes shimmerMove {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+
+.custom-footer {
+  font-family: 'Manrope', sans-serif;
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding: 16px;
+  z-index: 10;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.04);
+
+  .appointment-button {
+    width: 100%;
+    background: #0099ff;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: clamp(14px, 4vw, 16px);
+    border-radius: 12px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .button-group {
+    width: 100%;
+    margin-top: clamp(24px, 5vh, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .selection-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  
+    button {
+      position: relative;
+      overflow: hidden; // for ripple containment
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(18px, 2vw, 20px);
+      font-weight: 600;
+      color: #FFFFFF;
+      background: #18A0FB;
+      margin-top: 5%;
+      letter-spacing: 0.6px;
+      padding: 14px 24px;
+      border: 1px solid #18A0FB;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 55px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    
+      &:active {
+        transform: translateY(2px) scale(0.98);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
+      }
+    
+      // Spinner Styles
+      .btn-inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+    
+      .spinner {
+        margin: 0;
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        box-sizing: border-box;
+        opacity: 1;
+        transform: scale(1);
+      }
+    
+      // Adjusted spinner sizes
+      .spinner-sm { width: 16px; height: 16px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+      .spinner-md { width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+      .spinner-lg { width: 28px; height: 28px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
+      .spinner-xl { width: 36px; height: 36px; border: 4px solid rgba(255, 255, 255, 0.4); border-top: 4px solid white; }
+    
+      // Modifier: dark spinner for light backgrounds
+      .spinner-dark {
+        border-color: rgba(0, 0, 0, 0.1);
+        border-top-color: #333;
+      }
+    
+      // Ripple effect
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 600ms linear;
+        background-color: rgba(0, 123, 255, 0.3);
+        pointer-events: none;
+      }
+    
+      // Button hover, active, and disabled states
+      &:hover {
+        background-color: #1579C8;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+    
+      &:active {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+    }
+    
+    // Spinner animation (as per your provided code)
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    // Ripple keyframe animation
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }  
+  }
+}

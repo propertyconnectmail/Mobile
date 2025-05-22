@@ -1,0 +1,7 @@
+{
+  "name": "PropertyConnectMobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

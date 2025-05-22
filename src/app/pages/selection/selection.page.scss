@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
+
+// Theme Variables (optional centralization)
+$primary-color: #18A0FB;
+$bg-color: #f9fafb;
+$font: 'Manrope', sans-serif;
+
+:host {
+  --background: linear-gradient(to bottom, #E8F4FF 0%, #FFFFFF 100%);
+  font-family: $font;;
+  letter-spacing: 0.6px;
+}
+
+ion-content {
+  --background: linear-gradient(to bottom, #E8F4FF 0%, #FFFFFF 100%);
+  overflow: hidden;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  letter-spacing: 0.6px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }  
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5vh 5vw;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out both;
+
+  h1 {
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 700;
+    margin-bottom: 4vh;
+    color: #111827;
+  }
+}
+
+.selection-image {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 2vh;
+  animation: float 4s ease-in-out infinite;
+}
+
+.description {
+  font-size: clamp(16px, 2.5vw, 18px);
+  color: #6B7280;
+  font-weight: 400;
+  margin: 1vh 0;
+  line-height: 1.6;
+}
+
+.highlight {
+  color: #007BFF;
+  font-weight: 300;
+}
+
+.button-group {
+  width: 100%;
+  margin-top: 4vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.selection-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 0 16px;
+
+  button {
+    position: relative;
+    overflow: hidden; // for ripple containment
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(18px, 2vw, 20px);
+    font-weight: 600;
+    color: #18A0FB;
+    background: #ffffff;
+    margin-top: 5%;
+    letter-spacing: 0.6px;
+    padding: 14px 24px;
+    border: 1px solid #18A0FB;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    &:hover {
+      background-color: #18A0FB;
+      color: white;
+    }
+
+    // Ripple span
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 600ms linear;
+      background-color: rgba(0, 123, 255, 0.3);
+      pointer-events: none;
+    }
+  }
+}
+
+// Ripple animation
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+
+
+/* Float animation for image */
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Shimmer loading styles */
+.shimmer-container {
+  padding: 10vh 10vw;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 37%, #f0f0f0 63%);
+  animation: shimmer 1.8s infinite ease-in-out;
+  background-size: 1000px 100%;
+  border-radius: 8px;
+  margin: 1vh 0;
+}
+
+.title-shimmer {
+  width: 60%;
+  height: 32px;
+  margin: auto;
+  align-items: center ;
+}
+
+.image-shimmer {
+  width: 90%;
+  height: 200px;
+  margin: 3vh auto;
+  border-radius: 16px;
+  margin-bottom: 25%;
+}
+
+.text-shimmer.short {
+  width: 70%;
+  height: 22px;
+  text-align: center;
+}
+
+.text-shimmer.long {
+  width: 90%;
+  height: 18px;
+  margin-bottom: 25%;
+}
+
+.button-shimmer {
+  width: 100%;
+  height: 68px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+// ion-content {
+//   --background: var(--background);
+//   scroll-behavior: smooth;
+//   overflow-y: scroll;
+//   -ms-overflow-style: none;
+//   scrollbar-width: none;
+
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
+// }

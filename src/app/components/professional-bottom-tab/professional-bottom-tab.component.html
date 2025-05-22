@@ -1,0 +1,31 @@
+<div class="bottom-menu">
+  <div 
+    class="menu-item" 
+    [class.active]="isActive('/professional-home')" 
+    (click)="navigate('/professional-home')"
+  >
+    <img src="assets/icon/HomeIcon.svg" alt="Home" />
+    <span>Home</span>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+
+  <div 
+    class="menu-item" 
+    [class.active]="isActive('/professional-all-reviews')" 
+    (click)="navigate('/professional-all-reviews')"
+  >
+    <img src="assets/icon/ProfessionalStarIcon.svg" alt="Reviews" />
+    <span>Reviews</span>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+
+  <div 
+    class="menu-item" 
+    [class.active]="isActive('/professional-profile')" 
+    (click)="navigate('/professional-profile')"
+  >
+    <img src="assets/icon/ProfileIcon.svg" alt="Profile" />
+    <span>Profile</span>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+</div>
