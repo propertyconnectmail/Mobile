@@ -48,7 +48,7 @@ export class ClientProfilePage implements OnInit {
 
   profileOptions = [
     { label: 'Edit Profile', icon: 'assets/profile/profile-edit.svg', route: '/client-edit-profile' },
-    { label: 'Favorites', icon: 'assets/profile/profile-favourites.svg', route: '/favorites' },
+    { label: 'Favorites', icon: 'assets/profile/profile-favourites.svg', route: '/client-favourites' },
     { label: 'Payment Methods', icon: 'assets/profile/profile-payments.svg', route: '/client-payment-methods' },
     { label: 'Loan Eligibility Checker', icon: 'assets/profile/profile-issues.svg', route: '/client-eligibility' },
   ];

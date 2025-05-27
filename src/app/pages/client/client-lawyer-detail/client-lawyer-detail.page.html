@@ -5,9 +5,21 @@
           <img src="../../../assets/back-btn.svg" alt="Back" />
         </div>
         <h1 class="page-title">{{lawyer.type | titlecase}} Detail</h1>
-        <div class="back-button right">
-          <img src="assets/professional/professional-favourites.svg" alt="Favorite" /> 
+
+        
+        <div class="back-button right" (click)="toggleFavourite()">
+          <img 
+            *ngIf="!isFavourite" 
+            src="assets/professional/professional-favourites.svg" 
+            alt="Favourite"
+          />
+          <img 
+            *ngIf="isFavourite" 
+            src="assets/professional/professional-favourites-filled.svg" 
+            alt="Unfavourite"
+          />
         </div>
+
       </div>
     </div>
 
@@ -54,7 +66,7 @@
       <div class="recent-comments">
         <div class="comments-header">
           <h3>Recent comments</h3>
-          <a class="see-all" (click)="toAllReviews">See All</a>
+          <a class="see-all" (click)="toAllReviews()">See All</a>
         </div>
 
         <div class="comment-card" *ngIf="review.length > 0">

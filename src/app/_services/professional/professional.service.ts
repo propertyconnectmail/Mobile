@@ -35,4 +35,8 @@ export class ProfessionalService {
     updateProfessionalPassword(passwordForm : any) {
       return this.http.post<any>(this.apiUrl+'update/pass', passwordForm)
     }
+
+    updateForgotPassword(passwordForm : any) {
+    return this.http.post<any>(this.apiUrl+'update/forgot/pass', passwordForm)
+  }
 }

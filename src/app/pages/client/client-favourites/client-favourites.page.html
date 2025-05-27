@@ -1,0 +1,62 @@
+<ion-content [fullscreen]="true" class="browse-consultants">
+  <!-- Sticky Top Section -->
+  <div class="top-section">
+    <!-- Header -->
+    <div class="edit-profile-container">
+      <div class="header-row">
+        <div class="back-button left" (click)="prev()">
+          <img src="../../../assets/back-btn.svg" alt="Back" />
+        </div>
+        <h1 class="page-title">Favourites</h1>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <img src="assets/search.svg" alt="Search" class="search-icon" />
+      <input
+        type="text"
+        placeholder="Search for professional"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+      />
+    </div>
+
+    <!-- Category Scroll -->
+    <div class="category-scroll">
+      <button
+        *ngFor="let category of categories"
+        class="category-button"
+        [class.active]="selectedCategory === category.value"
+        (click)="selectCategory(category.value)"
+      >
+        {{ category.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Scrollable Cards Section -->
+  <div class="cards-container">
+    <div class="cards-grid" >
+      <div class="consultant-card" *ngFor="let consultant of filteredConsultants" (click)="professionalPage(consultant.email)">
+        <div class="image-wrapper">
+          <img [src]="consultant.url" alt="Consultant Photo" />
+        </div>
+        <h3>{{ consultant.firstName }} {{ consultant.lastName }}</h3>
+        <div class="role">{{ consultant.type | titlecase }}</div>
+        <div class="rating">
+          <img src="assets/star-filled.svg" alt="Star" />
+          {{ consultant.averageRating}} <span class="fee" style="margin: 0; padding: 0;">&nbsp; &nbsp;{{ '(LKR ' +consultant.consultationFee+')' }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="shimmer-grid" *ngIf="isLoading">
+      <div class="shimmer-card" *ngFor="let skeleton of [1,2,3,4,5,6]">
+        <div class="shimmer-image shimmer"></div>
+        <div class="shimmer-line shimmer short"></div>
+        <div class="shimmer-line shimmer"></div>
+        <div class="shimmer-line shimmer short"></div>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -31,7 +31,7 @@ export class ProfessionalAllReviewsPage implements OnInit {
     const user = JSON.parse(localStorage.getItem('user')!);
 
     this.professionalService.getProfessionalForm({email : user.email}).subscribe(async(res:any)=>{
-      this.reviews = res.rating
+      this.reviews = (res.rating || []).slice().reverse();
     })
   }
 

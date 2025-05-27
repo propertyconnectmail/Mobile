@@ -63,7 +63,11 @@ export class LoginProfessionalPage implements OnInit {
               this.isSubmitting = false;
               let Code = emailCode.Code;
               this.navCtrl.navigateForward(['/email-code'], {
-                queryParams: { Code }
+                queryParams: { Code, email: professional.email },
+                state: {
+                  user: res,
+                  type: 'professional'
+                }
               });
             }
           })
@@ -99,5 +103,9 @@ export class LoginProfessionalPage implements OnInit {
 
   toClientLogin(){
     this.navCtrl.navigateBack('/login');
+  }
+
+  toForgotPassword() {
+    this.navCtrl.navigateForward('/forgot-password/professional');
   }
 }

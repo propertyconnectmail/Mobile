@@ -55,17 +55,6 @@ export class LoginPage implements OnInit {
       this.isSubmitting = true;
       
       this.authService.loginClient(client).subscribe(async(res:any) => {
-        if(res.email === client.email){
-          this.authService.emailValidation({email: client.email, firstName : res.firstName}).subscribe(async(emailCode:any)=>{
-            if(emailCode.message === 'success'){
-              this.isSubmitting = false;
-              let Code = emailCode.Code;
-              this.navCtrl.navigateForward(['/email-code'], {
-                queryParams: { Code, email : client.email }
-              });
-            }
-          })
-        }
         if(res.Error === 'Email or Password is Incorrect'){
           console.log(res.Error)
               this.isSubmitting = false;
@@ -85,13 +74,25 @@ export class LoginPage implements OnInit {
           });
           return
         }
+        if(res.email === client.email){
+          this.authService.emailValidation({email: client.email, firstName : res.firstName}).subscribe(async(emailCode:any)=>{
+            if(emailCode.message === 'success'){
+              this.isSubmitting = false;
+              let Code = emailCode.Code;
+              this.navCtrl.navigateForward(['/email-code'], {
+                queryParams: { Code, email: client.email },
+                state: {
+                  user: res,
+                  type: 'client' // ← pass type via state
+                }
+              });
+            }
+          })
+          return
+        }
       })
     }
   }
-
-  // prev(){
-  //   this.navCtrl.navigateBack('/onboarding-client');
-  // }
 
   toRegistration(){
     this.navCtrl.navigateForward('/register');
@@ -100,4 +101,9 @@ export class LoginPage implements OnInit {
   toProfessionaLogin(){
     this.navCtrl.navigateForward('/login-professional');
   }
+
+  toForgotPassword() {
+    this.navCtrl.navigateForward('/forgot-password/client');
+  }
+
 }

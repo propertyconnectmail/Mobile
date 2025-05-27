@@ -19,22 +19,11 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   loginClient(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(this.apiUrl+'mobile/client', credentials).pipe(
-      tap(response => {
-        localStorage.setItem('user', JSON.stringify(response));
-        this.loggedIn.next(true);
-      })
-    );
+    return this.http.post(this.apiUrl + 'mobile/client', credentials);
   }
 
-
   loginProfessional(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(this.apiUrl+'mobile/professional', credentials).pipe(
-      tap(response => {
-        localStorage.setItem('user', JSON.stringify(response));
-        this.loggedIn.next(true);
-      })
-    );
+    return this.http.post(this.apiUrl + 'mobile/professional', credentials);
   }
   
   emailValidation(body : any) {
@@ -44,6 +33,14 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('user');
     this.loggedIn.next(false);
+  }
+
+  forgotPasswordRequest(data: any) {
+    return this.http.post<any>(this.apiUrl + 'forgotpass', data);
+  }
+
+  setLoggedIn(status: boolean): void {
+    this.loggedIn.next(status);
   }
 
   isLoggedIn(): Observable<boolean> {

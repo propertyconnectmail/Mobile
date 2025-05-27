@@ -1,0 +1,187 @@
+.browse-consultants {
+  --background: #f9fafb;
+  font-family: 'Manrope', sans-serif;
+
+  .top-section {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f9fafb;
+    padding: 0vw 4vw 3vw 4vw;
+  }
+
+  .edit-profile-container {
+    font-family: 'Manrope', sans-serif;
+    background-color: #f9fafb;
+    padding-bottom: 3%;
+
+    .header-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: clamp(16px, 5vw, 32px);
+        padding-top: 13%;
+
+        .back-button {
+            position: absolute;
+            top: 60%;
+            transform: translateY(-50%);
+            width: clamp(42px, 6vw, 50px);
+            height: clamp(42px, 6vw, 50px);
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
+            z-index: 10;
+            cursor: pointer;
+
+            &:active {
+                transform: translateY(-50%) scale(0.97);
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+                animation: bounceClick 0.3s ease-in-out;
+            }
+
+            img {
+                width: clamp(16px, 4vw, 24px);
+                height: clamp(16px, 4vw, 24px);
+            }
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            right: 10%;
+        }
+
+        .page-title {
+            font-size: clamp(20px, 5vw, 28px);
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+        }
+    }
+  }
+}
+
+
+.details-section {
+  padding: 0% 6%;
+  background: #f9fafb;
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%;
+  margin-top: -20px;
+  font-family: 'Manrope', sans-serif;
+
+  .recent-comments {
+    margin-top: 5%;
+    padding-bottom: 25vw;
+
+    .comments-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        font-size: clamp(16px, 4vw, 20px);
+        font-weight: 600;
+        margin-left: 1%;
+      }
+
+      .see-all {
+        font-size: clamp(13px, 3.2vw, 16px);
+        color: #18A0FB;
+      }
+    }
+
+    .comment-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #EDEDED;
+      padding: 16px;
+      margin-top: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+      .comment-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 12px;
+        }
+
+        .user-info {
+          flex-grow: 1;
+
+          .username {
+            font-weight: 600;
+            font-size: clamp(14px, 4vw, 16px);
+          }
+        }
+
+        .comment-rating {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+      }
+
+
+      .comment-body {
+        margin-top: 12px;
+
+        margin-top: 12px;
+
+        .comment-text {
+          font-size: clamp(13px, 3.2vw, 15px);
+          color: #6B7280;
+          white-space: pre-wrap; // preserves line breaks and spacing
+        }
+
+        .comment-date {
+          font-size: clamp(11px, 2.5vw, 13px);
+          color: #9CA3AF;
+          margin-top: 8px;
+        }
+      }
+    }
+  }
+}
+
+
+.empty-state {
+  font-family: 'Manrope', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15vh 8vw;
+  text-align: center;
+  color: #6b7280;
+
+  img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    margin-top: 50%;
+  }
+}
+
+  

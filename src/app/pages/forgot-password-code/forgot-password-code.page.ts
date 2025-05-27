@@ -8,43 +8,39 @@ import { ClientService } from 'src/app/_services/client/client.service';
 import { PlatformService } from 'src/app/core/_services/platform/platform.service';
 import { ToastService } from 'src/app/core/_services/toast/toast.service';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/core/_services/auth/auth.service';
 
 @Component({
-  selector: 'app-email-code',
-  templateUrl: './email-code.page.html',
-  styleUrls: ['./email-code.page.scss'],
+  selector: 'app-forgot-password-code',
+  templateUrl: './forgot-password-code.page.html',
+  styleUrls: ['./forgot-password-code.page.scss'],
   standalone: true,
   imports: [IonContent, CommonModule, FormsModule, ReactiveFormsModule]
 })
-export class EmailCodePage implements OnInit {
+export class ForgotPasswordCodePage implements OnInit {
 
-  validationForm!: FormGroup;
+  validationForm: FormGroup | any;
+  loading = false;
   isSubmitting = false;
-  code: any = '';
-  email: any = '';
-  type: string = '';
-  user: any;
-  
+  code : any= '';
+  email : any = '';
+  type : any = '';
 
-  constructor( private route: ActivatedRoute ,private fb: FormBuilder, private navCtrl: NavController, private toastService : ToastService, private authService : AuthService) {}
+  constructor( private route: ActivatedRoute ,private fb: FormBuilder, private navCtrl: NavController, private clientService : ClientService, private platformService : PlatformService, private toastService : ToastService) {}
 
   ngOnInit() {
-    this.code = this.route.snapshot.queryParamMap.get('Code') || '';
-    this.email = this.route.snapshot.queryParamMap.get('email') || '';
-    this.type = history.state.type || '';
-    this.user = history.state.user || null;
-
+    this.code = this.route.snapshot.queryParamMap.get('Code');
+    this.email = this.route.snapshot.queryParamMap.get('email');
+    this.type = this.route.snapshot.queryParamMap.get('type') || '';
     this.validationForm = this.fb.group({
-      code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
+      code: ['', [Validators.required, Validators.minLength(6),Validators.maxLength(6)]]
     });
   }
 
   onValidation(): void {
     
-    if (this.validationForm.invalid) {
+    if (this.validationForm.invalid){
       this.validationForm.markAllAsTouched();
-      this.toastService.show('Please enter the verification code.', {
+      this.toastService.show('Please fill alll the fields with valid details', {
         color: 'danger',
         position: 'bottom',
         duration: 3000
@@ -53,24 +49,17 @@ export class EmailCodePage implements OnInit {
     }
 
     if(this.validationForm.valid){
-      let enteredCode = String(this.validationForm.get('code')!.value);
+      let enteredCode = String(this.validationForm.get('code').value);
       if(this.code === enteredCode){
-        if (this.user) {
-          localStorage.setItem('user', JSON.stringify(this.user));
-          this.authService.setLoggedIn(true);
-        }
           this.isSubmitting = false;        
           this.toastService.show('Login successful!', {
             color: 'primary',
             position: 'bottom',
             duration: 3000
           });
-          if (this.type === 'professional') {
-            this.navCtrl.navigateRoot(['/professional-home']);
-          } else {
-            this.navCtrl.navigateRoot(['/client-home']);
-          }
-          return;
+          this.navCtrl.navigateForward(['/forgot-password-new-password'], {
+            queryParams: { email: this.email, type: this.type }
+          });
         }else{
           this.toastService.show('Incorrect validation code please try again!', {
               color: 'danger',

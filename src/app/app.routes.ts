@@ -44,7 +44,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/login-professional/login-professional.page').then( m => m.LoginProfessionalPage),canActivate: [authGuard]
   },
   {
-    path: 'forgot-password',
+    path: 'forgot-password/:type',
     loadComponent: () => import('./pages/forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
   },
   {
@@ -166,5 +166,21 @@ export const routes: Routes = [
   {
     path: 'email-code',
     loadComponent: () => import('./pages/email-code/email-code.page').then( m => m.EmailCodePage)
+  },
+  {
+    path: 'client-favourites',
+    loadComponent: () => import('./pages/client/client-favourites/client-favourites.page').then( m => m.ClientFavouritesPage)
+  },
+  {
+    path: 'client-professional-all-reviews',
+    loadComponent: () => import('./pages/client/client-professional-all-reviews/client-professional-all-reviews.page').then( m => m.ClientProfessionalAllReviewsPage)
+  },
+  {
+    path: 'forgot-password-code',
+    loadComponent: () => import('./pages/forgot-password-code/forgot-password-code.page').then( m => m.ForgotPasswordCodePage)
+  },
+  {
+    path: 'forgot-password-new-password',
+    loadComponent: () => import('./pages/forgot-password-new-password/forgot-password-new-password.page').then( m => m.ForgotPasswordNewPasswordPage)
   }
 ];
