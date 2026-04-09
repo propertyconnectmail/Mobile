@@ -31,6 +31,58 @@
         {{ category.label }}
       </button>
     </div>
+
+    <!-- ============ ADDED FOR LOCATION FILTER ============ -->
+    <!-- Filter Toggle Button -->
+    <div class="filter-toggle">
+      <button class="filter-toggle-btn" (click)="toggleLocationFilter()" [class.active]="showLocationFilter || selectedProvince !== 'all'">
+        <svg class="filter-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+        <span>Filter by Location</span>
+        <svg 
+          class="chevron-icon"
+          [class.rotated]="showLocationFilter"
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+      <button 
+        class="clear-filter-btn" 
+        *ngIf="selectedProvince !== 'all'" 
+        (click)="clearLocationFilters()"
+      >
+        Clear
+      </button>
+    </div>
+
+    <!-- Location Filter Dropdowns -->
+    <div class="location-filter" *ngIf="showLocationFilter">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Province</label>
+          <select [(ngModel)]="selectedProvince" (ngModelChange)="onProvinceChange()">
+            <option value="all">All Provinces</option>
+            <option *ngFor="let province of provinces" [value]="province">{{ province }}</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>District</label>
+          <select [(ngModel)]="selectedDistrict" (ngModelChange)="onDistrictChange()" [disabled]="selectedProvince === 'all'">
+            <option value="all">All Districts</option>
+            <option *ngFor="let district of districts" [value]="district">{{ district }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- ============ END ============ -->
   </div>
 
   <!-- Scrollable Cards Section -->

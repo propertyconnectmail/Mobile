@@ -2,14 +2,11 @@
   <div class="back-button" (click)="prev()">
     <img src="../../../assets/back-btn.svg" alt="Back" />
   </div>
-
   <div class="login-container">
     <img src="assets/logo/logo.svg" alt="App Logo" class="logo" />
     <h1>Create Your Account</h1>
     <p class="welcome-subtitle">Become a trusted expert on our platform.</p>
-
     <form (ngSubmit)="onRegistration()" [formGroup]="registrationForm" class="login-form">
-
       <!-- Basic Fields -->
       <div class="input-group" *ngFor="let field of basicFields">
         <label>{{ field.label }} <span>*</span></label>
@@ -19,6 +16,32 @@
         </div>
       </div>
 
+      <!-- ============ ADDED PROVINCE AND DISTRICT ============ -->
+      <!-- Province -->
+      <div class="input-group">
+        <label>Province <span>*</span></label>
+        <select formControlName="province" (change)="onProvinceChange()">
+          <option value="" disabled selected>Select your province</option>
+          <option *ngFor="let province of provinces" [value]="province">{{ province }}</option>
+        </select>
+        <div class="error-text" *ngIf="registrationForm.get('province')?.invalid && registrationForm.get('province')?.touched">
+          Please select a province
+        </div>
+      </div>
+
+      <!-- District -->
+      <div class="input-group">
+        <label>District <span>*</span></label>
+        <select formControlName="district" [attr.disabled]="districts.length === 0 ? true : null">
+          <option value="" disabled selected>Select your district</option>
+          <option *ngFor="let district of districts" [value]="district">{{ district }}</option>
+        </select>
+        <div class="error-text" *ngIf="registrationForm.get('district')?.invalid && registrationForm.get('district')?.touched">
+          Please select a district
+        </div>
+      </div>
+      <!-- ============ END ============ -->
+
       <div class="input-group">
         <label>Date of Birth <span> *</span></label>
         <input type="date" formControlName="dob" placeholder="Your Date of Birth" />
@@ -26,7 +49,6 @@
           Please enter a valid date of birth.
         </div>
       </div>
-
       <!-- Experience -->
       <div class="input-group">
         <label>Years of Experience <span>*</span></label>
@@ -35,8 +57,6 @@
           Please enter a valid number of years.
         </div>
       </div>
-
-
       <!-- Experience -->
       <div class="input-group">
         <label>About You <span>*</span></label>
@@ -45,8 +65,6 @@
           Please enter a valid about you section.
         </div>
       </div>
-
-
       <!-- Experience -->
       <div class="input-group">
         <label>Consultation Fee <span>*</span></label>
@@ -55,7 +73,6 @@
           Please enter a valid ConsultationFee.
         </div>
       </div>
-
       <!-- Password -->
       <div class="input-group password-group">
         <label>Password <span>*</span></label>
@@ -67,7 +84,6 @@
           Password should be atleast 6 characters
         </div>
       </div>
-
       <!-- Confirm Password -->
       <div class="input-group password-group">
         <label>Confirm Password <span>*</span></label>
@@ -79,7 +95,6 @@
           Password should be atleast 6 characters and matching the password field
         </div>
       </div>
-
       <!-- Type -->
       <div class="input-group">
         <label>Professional Type <span>*</span></label>
@@ -93,7 +108,6 @@
           Please select a professional type
         </div>
       </div>
-
       <!-- Certifications Upload -->
       <div class="input-group">
         <label>Upload Certifications (PDF, DOC, DOCX)</label>
@@ -113,7 +127,6 @@
           <li *ngFor="let file of selectedCertifications">{{ file.name }}</li>
         </ul>
       </div>
-
       <!-- Agreement -->
       <div class="input-group">
         <ion-checkbox formControlName="agreement" labelPlacement="end" justify="start">
@@ -123,7 +136,6 @@
           You must agree before continuing.
         </div>
       </div>
-
       <div class="button-group">
         <div class="selection-buttons">
           <button
@@ -140,7 +152,6 @@
           </button>
         </div>
       </div>
-
     </form>
   </div>
 </ion-content>

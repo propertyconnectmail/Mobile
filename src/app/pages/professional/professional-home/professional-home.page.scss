@@ -15,7 +15,6 @@
     align-items: center;
     justify-content: center;
     padding: 1rem 0;
-
     h1 {
       font-size: 5vw;
       font-weight: 700;
@@ -26,7 +25,6 @@
     }
   }
 
-
   .search-bar {
     background: #ffffff;
     border-radius: 14px;
@@ -36,7 +34,6 @@
     margin-bottom: 5vw;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.2s ease;
-
     input {
       flex: 1;
       border: none;
@@ -45,13 +42,11 @@
       outline: none;
       color: #333;
     }
-
     .search-icon {
       width: 5vw;
       height: 5vw;
       margin-right: 2vw;
     }
-
     &:focus-within {
       box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
     }
@@ -63,11 +58,9 @@
     gap: 3vw;
     padding-bottom: 1vw;
     margin-bottom: 3vw;
-
     &::-webkit-scrollbar {
       display: none;
     }
-
     .category-button {
       flex: 0 0 auto;
       padding: 2vw 5vw;
@@ -79,7 +72,6 @@
       background: transparent;
       white-space: nowrap;
       transition: all 0.2s ease;
-
       &.active,
       &:active {
         background: #2196f3;
@@ -89,37 +81,6 @@
     }
   }
 
-  .category-tabs {
-    display: flex;
-    overflow-x: auto;
-    padding: 1rem 0;
-    gap: 0.8rem;
-  
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  
-    .tab {
-      flex-shrink: 0;
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      white-space: nowrap;
-      background: var(--background);
-      border: 1.5px solid var(--ion-color-primary);
-      color: var(--ion-color-primary);
-      transition: 0.3s ease;
-      cursor: pointer;
-    }
-  
-    .active {
-      background: var(--ion-color-primary);
-      color: #fff;
-      border: none;
-    }
-  }
-  
   .appointments-list {
     padding: 3% 6%;
     display: flex;
@@ -128,7 +89,7 @@
     margin-top: 1rem;
     padding-bottom: 25vw;
   }
-  
+
   .appointment-card {
     background: #fff;
     border-radius: 20px;
@@ -140,12 +101,12 @@
     border: 1px solid rgba(0, 0, 0, 0.08);
     animation: fadeInUp 0.6s ease forwards;
   }
-  
+
   .profile-section {
     display: flex;
     align-items: center;
     gap: 1rem;
-  
+
     .profile-img {
       width: 56px;
       height: 56px;
@@ -153,8 +114,9 @@
       object-fit: cover;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
-  
+
     .profile-info {
+      flex: 1;
       h2 {
         font-size: 1.05rem;
         font-weight: 700;
@@ -166,29 +128,55 @@
         margin: 0;
       }
     }
+
+    // ============ ADDED - Status Badge Styles ============
+    .status-badge {
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: capitalize;
+      white-space: nowrap;
+
+      &.ongoing {
+        background-color: #e0ecff;
+        color: #3B82F6;
+      }
+
+      &.completed {
+        background-color: #d1fae5;
+        color: #059669;
+      }
+
+      &.under-review {
+        background-color: #fef3c7;
+        color: #d97706;
+      }
+    }
+    // ============ END ============
   }
-  
+
   .appointment-details {
     display: flex;
     gap: 1.5rem;
-  
+
     .detail-item {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-  
+
       img {
         width: 18px;
         height: 18px;
       }
-  
+
       span {
         font-size: 0.88rem;
         color: #555;
       }
     }
   }
-  
+
   .detail-button {
     background: var(--ion-color-primary);
     text-align: center;
@@ -199,12 +187,12 @@
     color: #fff;
     cursor: pointer;
     transition: transform 0.25s;
-  
+
     &:active {
       transform: scale(1.02);
     }
   }
-  
+
   /* Skeleton shimmer loading */
   .shimmer-card {
     height: 160px;
@@ -218,7 +206,7 @@
     border-radius: 20px;
     animation: shimmer 1.2s infinite;
   }
-  
+
   @keyframes fadeInUp {
     from {
       transform: translateY(10px);
@@ -229,7 +217,7 @@
       opacity: 1;
     }
   }
-  
+
   @keyframes shimmer {
     0% {
       background-position: 100% 0;
@@ -240,7 +228,6 @@
   }
 }
 
-
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -249,19 +236,15 @@
   padding: 15vh 8vw;
   text-align: center;
   color: #6b7280;
-
   img {
     width: 120px;
     height: auto;
     margin-bottom: 1rem;
     opacity: 0.7;
   }
-
   p {
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0;
   }
 }
-
-  

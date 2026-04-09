@@ -33,6 +33,26 @@ export class ClientBrowsePage implements OnInit {
   searchTerm = '';
   private searchSubject = new Subject<string>();
 
+  // ============ ADDED FOR LOCATION FILTER ============
+  showLocationFilter = false;
+  selectedProvince = 'all';
+  selectedDistrict = 'all';
+  provinces: string[] = ['Western', 'Central', 'Southern', 'Northern', 'Eastern', 'North Western', 'North Central', 'Uva', 'Sabaragamuwa'];
+  districts: string[] = [];
+
+  districtsByProvince: { [key: string]: string[] } = {
+    'Western': ['Colombo', 'Gampaha', 'Kalutara'],
+    'Central': ['Kandy', 'Matale', 'Nuwara Eliya'],
+    'Southern': ['Galle', 'Matara', 'Hambantota'],
+    'Northern': ['Jaffna', 'Kilinochchi', 'Mannar', 'Mullaitivu', 'Vavuniya'],
+    'Eastern': ['Batticaloa', 'Ampara', 'Trincomalee'],
+    'North Western': ['Kurunegala', 'Puttalam'],
+    'North Central': ['Anuradhapura', 'Polonnaruwa'],
+    'Uva': ['Badulla', 'Monaragala'],
+    'Sabaragamuwa': ['Ratnapura', 'Kegalle']
+  };
+  // ============ END ============
+
   ngOnInit() {
     this.isLoading = true;
     this.professionalService.getAllProfessionalForm().subscribe((res: any) => {
@@ -68,7 +88,17 @@ export class ClientBrowsePage implements OnInit {
       const fullName = `${consultant.firstName} ${consultant.lastName}`.toLowerCase();
       const matchesSearch = fullName.includes(searchLower);
 
-      return matchesCategory && matchesSearch;
+      // ============ ADDED FOR LOCATION FILTER ============
+      const matchesProvince =
+        this.selectedProvince === 'all' ||
+        consultant.province === this.selectedProvince;
+
+      const matchesDistrict =
+        this.selectedDistrict === 'all' ||
+        consultant.district === this.selectedDistrict;
+
+      return matchesCategory && matchesSearch && matchesProvince && matchesDistrict;
+      // ============ END ============
     });
   }
 
@@ -92,4 +122,31 @@ export class ClientBrowsePage implements OnInit {
       queryParams: { email }
     });
   }
+
+  // ============ ADDED FOR LOCATION FILTER ============
+  toggleLocationFilter() {
+    this.showLocationFilter = !this.showLocationFilter;
+  }
+
+  onProvinceChange() {
+    this.selectedDistrict = 'all';
+    if (this.selectedProvince === 'all') {
+      this.districts = [];
+    } else {
+      this.districts = this.districtsByProvince[this.selectedProvince] || [];
+    }
+    this.applyFilters();
+  }
+
+  onDistrictChange() {
+    this.applyFilters();
+  }
+
+  clearLocationFilters() {
+    this.selectedProvince = 'all';
+    this.selectedDistrict = 'all';
+    this.districts = [];
+    this.applyFilters();
+  }
+  // ============ END ============
 }

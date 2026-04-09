@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent} from '@ionic/angular/standalone';
+import { IonContent } from '@ionic/angular/standalone';
 import { debounceTime, Subject } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { AppointmentService } from 'src/app/_services/appointment/appointment.service';
@@ -25,11 +25,14 @@ export class ProfessionalHomePage implements OnInit {
   searchTerm = '';
   searchSubject: Subject<string> = new Subject();
 
+  // ============ UPDATED - Added Under Review tab ============
   categories = [
-    { label: 'All Appointments', value: 'all' },
+    { label: 'All', value: 'all' },
     { label: 'Ongoing', value: 'ongoing' },
+    { label: 'Under Review', value: 'under_review' },
     { label: 'Completed', value: 'completed' }
   ];
+  // ============ END ============
 
   constructor(private navCtrl: NavController, private appointmentService: AppointmentService) {}
 
@@ -47,17 +50,12 @@ export class ProfessionalHomePage implements OnInit {
     });
   }
 
-
   ionViewWillEnter() {
     const user = JSON.parse(localStorage.getItem('user')!);
 
     this.appointmentService.getAllProfessionalAppointments({ professionalEmail: user.email }).subscribe((res: any) => {
       this.appointments = res;
       this.isLoading = false;
-      this.filterAppointments();
-    });
-
-    this.searchSubject.pipe(debounceTime(300)).subscribe(() => {
       this.filterAppointments();
     });
   }
@@ -71,14 +69,16 @@ export class ProfessionalHomePage implements OnInit {
     this.filterAppointments();
   }
 
+  // ============ UPDATED - Added under_review filter ============
   filterAppointments() {
     let filtered = [...this.appointments];
-    console.log(filtered)
 
     if (this.selectedCategory === 'ongoing') {
       filtered = filtered.filter(app => app.appointmentStatus === 'ongoing');
     } else if (this.selectedCategory === 'completed') {
       filtered = filtered.filter(app => app.appointmentStatus === 'completed');
+    } else if (this.selectedCategory === 'under_review') {
+      filtered = filtered.filter(app => app.appointmentStatus === 'under_review');
     }
 
     if (this.searchTerm.trim()) {
@@ -89,9 +89,18 @@ export class ProfessionalHomePage implements OnInit {
 
     this.filteredAppointments = filtered;
   }
+  // ============ END ============
 
+  getStatusLabel(status: string): string {
+    switch(status) {
+      case 'ongoing': return 'Ongoing';
+      case 'completed': return 'Completed';
+      case 'under_review': return 'Under Review';
+      default: return status || 'Unknown';
+    }
+  }
 
-  goToAppointment(appointmentId : any){
+  goToAppointment(appointmentId: any) {
     this.navCtrl.navigateForward(['/professional-appointment-detail'], {
       queryParams: { appointmentId }
     });

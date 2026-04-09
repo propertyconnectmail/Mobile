@@ -1,4 +1,3 @@
-
 <ion-content [fullscreen]="true">
   <!-- Top Header -->
   <div class="edit-profile-container">
@@ -9,15 +8,12 @@
       <h1 class="page-title">Appointment Detail</h1>
     </div>
   </div>
-
   <!-- Profile Image -->
   <div class="profile-section">
     <img [src]="appointment?.professionalUrl" alt="Lawyer" class="lawyer-image" />
   </div>
-
   <!-- Main Detail Section -->
   <div class="details-section">
-
     <!-- Header Buttons & Category Scroll -->
     <div class="appointment-header">
       <div class="centered-actions">
@@ -28,7 +24,6 @@
           </button>
           <span>Contact</span>
         </div>
-
         <!-- Message -->
         <div class="action-icon">
           <button class="circle-btn" (click)="emailProfessional()">
@@ -36,7 +31,6 @@
           </button>
           <span>Message</span>
         </div>
-
         <!-- Meeting -->
         <div class="action-icon">
           <button class="circle-btn" (click)="openZoomMeeting()">
@@ -45,7 +39,6 @@
           <span>Meeting</span>
         </div>
       </div>
-
       <div class="category-scroll">
         <button *ngFor="let category of categories"
                 class="category-button"
@@ -56,7 +49,7 @@
       </div>
     </div>
 
-
+    <!-- ============ APPOINTMENT DETAILS TAB ============ -->
     <div *ngIf="selectedCategory === 'appointment details'" class="appointment-info">
       <div class="appointment-detail-card">
         <div class="row">
@@ -73,28 +66,63 @@
         </div>
         <div class="row">
           <span class="label">Status</span>
-          <span class="value status ongoing">{{ appointment?.appointmentStatus | titlecase }}</span>
+          <span class="value status" [ngClass]="{
+            'ongoing': appointment?.appointmentStatus === 'ongoing',
+            'completed': appointment?.appointmentStatus === 'completed',
+            'under-review': appointment?.appointmentStatus === 'under_review'
+          }">{{ getStatusDisplay(appointment?.appointmentStatus) }}</span>
         </div>
       </div>
     </div>
 
-    <div class="button-group" *ngIf="selectedCategory === 'appointment details' && appointment?.professionalDocumentsUploaded === true && appointment?.appointmentStatus != 'completed'">
-        <div class="selection-buttons">
-          <button
-            class="load-button"
-            expand="block"
-            type="submit"
-            [disabled]="isSubmitting"
-            (click)="onCompleteAppointment()"
-          >
-            <div class="btn-inner">
-              <span *ngIf="!isSubmitting">Complete Appointment</span>
-              <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
-            </div>
-          </button>
-        </div>
+    <!-- ============ WARNING BANNER - Show when other party has complaint but you're satisfied ============ -->
+    <div *ngIf="selectedCategory === 'appointment details' && showComplaintWarning()" class="complaint-warning-banner">
+      <div class="warning-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
       </div>
+      <div class="warning-content">
+        <p class="warning-title">Appointment Under Review</p>
+        <p class="warning-text">A complaint has been raised regarding this appointment. Our management team is currently reviewing this case. You will be notified once resolved.</p>
+      </div>
+    </div>
 
+    <!-- ============ COMPLETE APPOINTMENT BUTTON ============ -->
+    <div class="button-group" *ngIf="selectedCategory === 'appointment details' && canShowCompleteButton()">
+      <div class="selection-buttons">
+        <button
+          class="load-button"
+          expand="block"
+          type="submit"
+          [disabled]="isSubmitting"
+          (click)="onCompleteAppointment()"
+        >
+          <div class="btn-inner">
+            <span *ngIf="!isSubmitting">Complete Appointment</span>
+            <span *ngIf="isSubmitting" class="spinner spinner-dark spinner-md"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ WAITING FOR OTHER PARTY MESSAGE ============ -->
+    <div *ngIf="selectedCategory === 'appointment details' && showWaitingMessage()" class="waiting-message-banner">
+      <div class="waiting-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <div class="waiting-content">
+        <p class="waiting-title">Awaiting Professional</p>
+        <p class="waiting-text">You have completed your part. Waiting for the professional to complete the appointment.</p>
+      </div>
+    </div>
+
+    <!-- ============ CHECKLIST ============ -->
     <div *ngIf="selectedCategory === 'appointment details'" class="checklist-info">
       <div class="card checklist-card">
         <h4>Appointment Checklist</h4>
@@ -134,6 +162,15 @@
             <span>1-2 Minutes</span>
           </div>
         </div>
+
+        <!-- 5. NEW: Both parties completed appointment -->
+        <div class="checklist-item" [ngClass]="{ 'completed': appointment?.appointmentCompletedByClient && appointment?.appointmentCompletedByProfessional }">
+          <img src="assets/appointment/meeting-checklist.svg" />
+          <div class="text">
+            <p>Both parties confirmed completion</p>
+            <span>Final step</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -148,7 +185,91 @@
       </div>
     </div>
 
-    <!-- Client Details -->
+    <!-- ============ COMPLAINT DETAILS TAB ============ -->
+    <div *ngIf="selectedCategory === 'complaint details'" class="complaint-details-wrapper">
+      <!-- Client Complaint Card -->
+      <div class="complaint-card">
+        <div class="complaint-card-header">
+          <h4>Your Feedback</h4>
+          <span class="complaint-badge" [ngClass]="{
+            'satisfied': appointment?.clientFeedback?.satisfied === true,
+            'complaint': appointment?.clientFeedback?.satisfied === false,
+            'pending': appointment?.clientFeedback?.submittedAt === null
+          }">
+            {{ getClientFeedbackBadge() }}
+          </span>
+        </div>
+        <div class="complaint-card-body" *ngIf="appointment?.clientFeedback?.submittedAt">
+          <div class="feedback-row" *ngIf="appointment?.clientFeedback?.satisfied === false">
+            <span class="feedback-label">Complaint Type</span>
+            <span class="feedback-value">{{ getComplaintTypeLabel(appointment?.clientFeedback?.complaintType) }}</span>
+          </div>
+          <div class="feedback-row" *ngIf="appointment?.clientFeedback?.complaintMessage">
+            <span class="feedback-label">Details</span>
+            <span class="feedback-value">{{ appointment?.clientFeedback?.complaintMessage }}</span>
+          </div>
+          <div class="feedback-row">
+            <span class="feedback-label">Submitted</span>
+            <span class="feedback-value">{{ appointment?.clientFeedback?.submittedAt | date:'medium' }}</span>
+          </div>
+        </div>
+        <div class="complaint-card-body empty" *ngIf="!appointment?.clientFeedback?.submittedAt">
+          <p>No feedback submitted yet</p>
+        </div>
+      </div>
+
+      <!-- Professional Complaint Card -->
+      <div class="complaint-card">
+        <div class="complaint-card-header">
+          <h4>Professional's Feedback</h4>
+          <span class="complaint-badge" [ngClass]="{
+            'satisfied': appointment?.professionalFeedback?.satisfied === true,
+            'complaint': appointment?.professionalFeedback?.satisfied === false,
+            'pending': appointment?.professionalFeedback?.submittedAt === null
+          }">
+            {{ getProfessionalFeedbackBadge() }}
+          </span>
+        </div>
+        <div class="complaint-card-body" *ngIf="appointment?.professionalFeedback?.submittedAt">
+          <div class="feedback-row" *ngIf="appointment?.professionalFeedback?.satisfied === false">
+            <span class="feedback-label">Complaint Type</span>
+            <span class="feedback-value">{{ getComplaintTypeLabel(appointment?.professionalFeedback?.complaintType) }}</span>
+          </div>
+          <div class="feedback-row" *ngIf="appointment?.professionalFeedback?.complaintMessage">
+            <span class="feedback-label">Details</span>
+            <span class="feedback-value">{{ appointment?.professionalFeedback?.complaintMessage }}</span>
+          </div>
+          <div class="feedback-row">
+            <span class="feedback-label">Submitted</span>
+            <span class="feedback-value">{{ appointment?.professionalFeedback?.submittedAt | date:'medium' }}</span>
+          </div>
+        </div>
+        <div class="complaint-card-body empty" *ngIf="!appointment?.professionalFeedback?.submittedAt">
+          <p>No feedback submitted yet</p>
+        </div>
+      </div>
+
+      <!-- Complaint Status Card (if there's a complaint) -->
+      <div class="complaint-status-card" *ngIf="appointment?.hasComplaint">
+        <div class="status-header">
+          <h4>Complaint Status</h4>
+          <span class="status-badge" [ngClass]="{
+            'pending': appointment?.complaintStatus === 'pending',
+            'reviewing': appointment?.complaintStatus === 'reviewing',
+            'resolved': appointment?.complaintStatus === 'resolved'
+          }">
+            {{ appointment?.complaintStatus | titlecase }}
+          </span>
+        </div>
+        <p class="status-description">
+          <span *ngIf="appointment?.complaintStatus === 'pending'">Your complaint has been received and is awaiting review by our management team.</span>
+          <span *ngIf="appointment?.complaintStatus === 'reviewing'">Our management team is currently reviewing this complaint.</span>
+          <span *ngIf="appointment?.complaintStatus === 'resolved'">This complaint has been resolved. Thank you for your patience.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ============ CLIENT DETAILS TAB ============ -->
     <div *ngIf="selectedCategory === 'client detail'" class="client-details-wrapper">
       <div class="client-card">
         <div class="client-header">
@@ -168,7 +289,7 @@
       </div>
     </div>
 
-    <!-- Professional Details -->
+    <!-- ============ PROFESSIONAL DETAILS TAB ============ -->
     <div *ngIf="selectedCategory === 'lawyer detail'" class="professional-details-wrapper">
       <div class="professional-card">
         <div class="professional-header">
@@ -190,7 +311,7 @@
       </div>
     </div>
 
-    <!-- Payment Details -->
+    <!-- ============ PAYMENT DETAILS TAB ============ -->
     <div *ngIf="selectedCategory === 'payment detail'" class="payment-info-wrapper">
       <div class="payment-card">
         <h4>Payment Summary</h4>
@@ -201,13 +322,9 @@
       </div>
     </div>
 
-
     <!-- Client Document Upload Section -->
-    <div *ngIf="selectedCategory === 'client detail' && appointment.chatInitiated === true " class="document-section">
-
+    <div *ngIf="selectedCategory === 'client detail' && appointment?.chatInitiated === true" class="document-section">
       <h4>Client Documents</h4>
-
-      <!-- Dropzone or click-to-select area -->
       <div class="upload-dropzone" (click)="clientFileInput.click()">
         <img src="assets/appointment/file-upload.svg" alt="Upload Icon" />
         <p>Click here to select documents (PDF, DOC, DOCX)</p>
@@ -220,8 +337,6 @@
           (change)="handleFileUpload($event, 'client')"
         />
       </div>
-
-      <!-- Buttons only shown conditionally -->
       <div class="document-buttons">
         <button
           class="doc-btn upload-btn"
@@ -231,7 +346,6 @@
           <img src="assets/appointment/file-upload.svg" alt="Upload" />
           Upload Files
         </button>
-
         <button
           class="doc-btn download-btn"
           *ngIf="appointment?.clientDocuments?.length > 0"
@@ -241,8 +355,6 @@
           Download Files
         </button>
       </div>
-
-      <!-- Preview selected files -->
       <ul class="file-list" *ngIf="clientDocuments.length">
         <li *ngFor="let file of clientDocuments">
           {{ file.name }}
@@ -250,15 +362,10 @@
       </ul>
     </div>
 
-
-    <!-- Professional Document Upload Section -->
-    <div *ngIf="selectedCategory === 'lawyer detail' && appointment.zoomMeetingCompletedClient === true && appointment.zoomMeetingCompletedProfessional === true && appointment?.professionalDocuments?.length > 0" class="document-section">
-
+    <!-- Professional Document Download Section -->
+    <div *ngIf="selectedCategory === 'lawyer detail' && appointment?.zoomMeetingCompletedClient === true && appointment?.zoomMeetingCompletedProfessional === true && appointment?.professionalDocuments?.length > 0" class="document-section">
       <h4>Professional Documents</h4>
-
-      <!-- Buttons only shown conditionally -->
       <div class="document-buttons">
-
         <button
           class="doc-btn download-btn"
           *ngIf="appointment?.professionalDocuments?.length > 0"
@@ -269,7 +376,84 @@
         </button>
       </div>
     </div>
+  </div>
 
+  <!-- ============ FEEDBACK MODAL ============ -->
+  <div class="feedback-modal-overlay" *ngIf="showFeedbackModal" (click)="closeFeedbackModal()">
+    <div class="feedback-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>How was your experience?</h3>
+        <button class="close-btn" (click)="closeFeedbackModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="satisfaction-section">
+          <p>Were you satisfied with the consultation?</p>
+          <div class="satisfaction-buttons">
+            <button 
+              class="satisfaction-btn satisfied" 
+              [class.selected]="feedbackSatisfied === true"
+              (click)="selectSatisfaction(true)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+              </svg>
+              <span>Yes, Satisfied</span>
+            </button>
+            <button 
+              class="satisfaction-btn unsatisfied" 
+              [class.selected]="feedbackSatisfied === false"
+              (click)="selectSatisfaction(false)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M16 16s-1.5-2-4-2-4 2-4 2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+              </svg>
+              <span>No, Have Issue</span>
+            </button>
+          </div>
+        </div>
+        <div class="complaint-section" *ngIf="feedbackSatisfied === false">
+          <p>What type of issue did you face?</p>
+          <div class="complaint-types">
+            <button 
+              *ngFor="let type of complaintTypes" 
+              class="complaint-type-btn"
+              [class.selected]="selectedComplaintType === type.value"
+              (click)="selectComplaintType(type.value)"
+            >
+              {{ type.label }}
+            </button>
+          </div>
+          <div class="complaint-message">
+            <label>Additional Details (Optional)</label>
+            <textarea 
+              [(ngModel)]="complaintMessage" 
+              placeholder="Please describe your issue..."
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button 
+          class="submit-feedback-btn" 
+          [disabled]="feedbackSatisfied === null || (feedbackSatisfied === false && !selectedComplaintType) || isSubmittingFeedback"
+          (click)="submitFeedback()"
+        >
+          <span *ngIf="!isSubmittingFeedback">Submit Feedback</span>
+          <span *ngIf="isSubmittingFeedback" class="spinner spinner-md"></span>
+        </button>
+      </div>
+    </div>
   </div>
 </ion-content>
-

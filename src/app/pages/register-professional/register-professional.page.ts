@@ -17,7 +17,6 @@ import { UploadService } from 'src/app/_services/upload/upload.service';
   imports: [IonContent,IonCheckbox, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class RegisterProfessionalPage implements OnInit {
-
   registrationForm!: FormGroup;
   isSubmitting = false;
   showPassword = false;
@@ -32,6 +31,23 @@ export class RegisterProfessionalPage implements OnInit {
     { label: 'Address', controlName: 'address', type: 'text', placeholder: 'Your Address', error: 'Address is required' },
   ];
 
+  // ============ ADDED FOR PROVINCE AND DISTRICT ============
+  provinces: string[] = ['Western', 'Central', 'Southern', 'Northern', 'Eastern', 'North Western', 'North Central', 'Uva', 'Sabaragamuwa'];
+  districts: string[] = [];
+
+  districtsByProvince: { [key: string]: string[] } = {
+    'Western': ['Colombo', 'Gampaha', 'Kalutara'],
+    'Central': ['Kandy', 'Matale', 'Nuwara Eliya'],
+    'Southern': ['Galle', 'Matara', 'Hambantota'],
+    'Northern': ['Jaffna', 'Kilinochchi', 'Mannar', 'Mullaitivu', 'Vavuniya'],
+    'Eastern': ['Batticaloa', 'Ampara', 'Trincomalee'],
+    'North Western': ['Kurunegala', 'Puttalam'],
+    'North Central': ['Anuradhapura', 'Polonnaruwa'],
+    'Uva': ['Badulla', 'Monaragala'],
+    'Sabaragamuwa': ['Ratnapura', 'Kegalle']
+  };
+  // ============ END ============
+
   constructor( private fb: FormBuilder,private navCtrl: NavController,private professionalService: ProfessionalService,private platformService: PlatformService,private toastService: ToastService, private uploadService : UploadService ) {}
 
   ngOnInit(): void {
@@ -42,6 +58,10 @@ export class RegisterProfessionalPage implements OnInit {
       nic: ['', [Validators.required, Validators.pattern(/^[0-9]{9}[vVxX]?$|^[0-9]{12}$/)]],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       address: ['', [Validators.required, Validators.minLength(5)]],
+      // ============ ADDED FOR PROVINCE AND DISTRICT ============
+      province: ['', Validators.required],
+      district: ['', Validators.required],
+      // ============ END ============
       dob: ['', Validators.required],
       experience: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -60,6 +80,18 @@ export class RegisterProfessionalPage implements OnInit {
       certifications: [[]]
     });
   }
+
+  // ============ ADDED FOR PROVINCE AND DISTRICT ============
+  onProvinceChange() {
+    const selectedProvince = this.registrationForm.get('province')?.value;
+    this.registrationForm.get('district')?.setValue('');
+    if (selectedProvince) {
+      this.districts = this.districtsByProvince[selectedProvince] || [];
+    } else {
+      this.districts = [];
+    }
+  }
+  // ============ END ============
 
   togglePassword() {
     this.showPassword = !this.showPassword;
@@ -102,7 +134,6 @@ export class RegisterProfessionalPage implements OnInit {
       return;
     }
 
-
     if (this.registrationForm.get('agreement')?.invalid) {
       this.registrationForm.get('agreement')?.markAsTouched(); 
       return;
@@ -111,7 +142,6 @@ export class RegisterProfessionalPage implements OnInit {
     this.isSubmitting = true;
 
     try {
-
       if(this.registrationForm.valid){
         const formData = new FormData();
         this.selectedCertifications.forEach(file => formData.append('certifications', file));

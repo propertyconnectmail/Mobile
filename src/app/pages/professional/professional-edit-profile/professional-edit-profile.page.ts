@@ -16,11 +16,27 @@ import { ProfessionalService } from 'src/app/_services/professional/professional
   imports: [IonContent, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class ProfessionalEditProfilePage implements OnInit {
-
   registrationForm!: FormGroup;
   isSubmitting = false;
   isLoadingImage = true;
   isLoadingName = true;
+
+  // ============ ADDED FOR PROVINCE AND DISTRICT ============
+  provinces: string[] = ['Western', 'Central', 'Southern', 'Northern', 'Eastern', 'North Western', 'North Central', 'Uva', 'Sabaragamuwa'];
+  districts: string[] = [];
+
+  districtsByProvince: { [key: string]: string[] } = {
+    'Western': ['Colombo', 'Gampaha', 'Kalutara'],
+    'Central': ['Kandy', 'Matale', 'Nuwara Eliya'],
+    'Southern': ['Galle', 'Matara', 'Hambantota'],
+    'Northern': ['Jaffna', 'Kilinochchi', 'Mannar', 'Mullaitivu', 'Vavuniya'],
+    'Eastern': ['Batticaloa', 'Ampara', 'Trincomalee'],
+    'North Western': ['Kurunegala', 'Puttalam'],
+    'North Central': ['Anuradhapura', 'Polonnaruwa'],
+    'Uva': ['Badulla', 'Monaragala'],
+    'Sabaragamuwa': ['Ratnapura', 'Kegalle']
+  };
+  // ============ END ============
 
   constructor(
     private fb: FormBuilder,
@@ -38,6 +54,10 @@ export class ProfessionalEditProfilePage implements OnInit {
       nic: ['', [Validators.required, Validators.pattern(/^[0-9]{9}[vVxX]?$|^[0-9]{12}$/)]],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       address: ['', [Validators.required, Validators.minLength(5)]],
+      // ============ ADDED FOR PROVINCE AND DISTRICT ============
+      province: ['', Validators.required],
+      district: ['', Validators.required],
+      // ============ END ============
       dob: ['', Validators.required],
       url: [''],
       status: [''],
@@ -58,11 +78,30 @@ export class ProfessionalEditProfilePage implements OnInit {
         }
       }
 
+      // ============ ADDED FOR PROVINCE AND DISTRICT ============
+      // Load districts based on saved province before patching form
+      if (res.province) {
+        this.districts = this.districtsByProvince[res.province] || [];
+      }
+      // ============ END ============
+
       this.registrationForm.patchValue(res);
       this.isLoadingImage = false;
       this.isLoadingName = false;
     });
   }
+
+  // ============ ADDED FOR PROVINCE AND DISTRICT ============
+  onProvinceChange() {
+    const selectedProvince = this.registrationForm.get('province')?.value;
+    this.registrationForm.get('district')?.setValue('');
+    if (selectedProvince) {
+      this.districts = this.districtsByProvince[selectedProvince] || [];
+    } else {
+      this.districts = [];
+    }
+  }
+  // ============ END ============
 
   prev() {
     this.navCtrl.navigateBack('/professional-profile');
@@ -134,6 +173,7 @@ export class ProfessionalEditProfilePage implements OnInit {
 
     const file = input.files[0];
     const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
     if (!allowedTypes.includes(file.type)) {
       this.toastService.show('Only PNG, JPG, and JPEG formats are allowed.', {
         color: 'danger',
@@ -179,5 +219,4 @@ export class ProfessionalEditProfilePage implements OnInit {
   changePassword() {
     this.navCtrl.navigateForward('/professional-change-password');
   }
-  
 }

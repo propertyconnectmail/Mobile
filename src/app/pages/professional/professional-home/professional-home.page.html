@@ -41,11 +41,20 @@
   <div *ngIf="!isLoading" class="appointments-list">
     <div class="appointment-card" *ngFor="let appointment of filteredAppointments">
       <div class="profile-section">
-        <img [src]="appointment.clientUrl" alt="Doctor" class="profile-img" />
+        <img [src]="appointment.clientUrl" alt="Client" class="profile-img" />
         <div class="profile-info">
           <h2>{{ appointment.clientName }}</h2>
           <p>{{ appointment.appointmentId }}</p>
         </div>
+        <!-- ============ ADDED - Status Badge ============ -->
+        <span class="status-badge" [ngClass]="{
+          'ongoing': appointment.appointmentStatus === 'ongoing',
+          'completed': appointment.appointmentStatus === 'completed',
+          'under-review': appointment.appointmentStatus === 'under_review'
+        }">
+          {{ getStatusLabel(appointment.appointmentStatus) }}
+        </span>
+        <!-- ============ END ============ -->
       </div>
       <div class="appointment-details">
         <div class="detail-item">
@@ -64,9 +73,8 @@
   <!-- Empty State -->
   <div *ngIf="!isLoading && filteredAppointments.length === 0" class="empty-state">
     <img src="assets/appointment/empty-calendar.svg" alt="No Appointments" />
-    <p>No appointments yet</p>
+    <p>No appointments found</p>
   </div>
-
 
   <app-professional-bottom-tab></app-professional-bottom-tab>
 </ion-content>

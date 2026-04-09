@@ -9,51 +9,44 @@ export class AppointmentService {
 
   private apiUrl = `${environment.apiUrl}/appointment/`;
   
-    constructor(private http: HttpClient) {}
-  
-    postAppointmentForm(AppointmentForm : any) {
-      console.log(this.apiUrl)
-      return this.http.post<any>(this.apiUrl+'create', AppointmentForm)
-    }
-  
-    getAllClientAppointments(body: any) {
-      return this.http.post<any>(this.apiUrl+'get/client/appointments', body)
-    }
+  constructor(private http: HttpClient) {}
 
-    getAllProfessionalAppointments(body: any) {
-      return this.http.post<any>(this.apiUrl+'get/professional/appointments', body)
-    }
+  postAppointmentForm(AppointmentForm: any) {
+    console.log(this.apiUrl)
+    return this.http.post<any>(this.apiUrl + 'create', AppointmentForm)
+  }
 
-    getAppointment(body: any) {
-      return this.http.post<any>(this.apiUrl+'get/appointment', body)
-    }
+  getAllClientAppointments(body: any) {
+    return this.http.post<any>(this.apiUrl + 'get/client/appointments', body)
+  }
 
-    updateAppointment(body: any) {
-      return this.http.post<any>(this.apiUrl+'update', body)
-    }
+  getAllProfessionalAppointments(body: any) {
+    return this.http.post<any>(this.apiUrl + 'get/professional/appointments', body)
+  }
 
-    updateAppointmentClientFiles(body: any) {
-      return this.http.post<any>(this.apiUrl+'update/client/files', body)
-    }
+  getAppointment(body: any) {
+    return this.http.post<any>(this.apiUrl + 'get/appointment', body)
+  }
 
-    updateAppointmentProfessionalFiles(body: any) {
-      return this.http.post<any>(this.apiUrl+'update/professional/files', body)
-    }
+  updateAppointment(body: any) {
+    return this.http.post<any>(this.apiUrl + 'update', body)
+  }
 
+  updateAppointmentClientFiles(body: any) {
+    return this.http.post<any>(this.apiUrl + 'update/client/files', body)
+  }
 
-    // getAllProfessionalForm() {
-    //   return this.http.get<any>(this.apiUrl+'get/all/verified')
-    // }
-  
-    // updateProfessionalForm(ProfessionalForm : any) {
-    //   return this.http.post<any>(this.apiUrl+'update', ProfessionalForm)
-    // }
-  
-    // updateProfilePicture(ProfessionalForm : any) {
-    //   return this.http.post<any>(this.apiUrl+'update/picture', ProfessionalForm)
-    // }
-  
-    // updateProfessionalPassword(passwordForm : any) {
-    //   return this.http.post<any>(this.apiUrl+'update/pass', passwordForm)
-    // }
+  updateAppointmentProfessionalFiles(body: any) {
+    return this.http.post<any>(this.apiUrl + 'update/professional/files', body)
+  }
+
+  // ============ ADDED FOR FEEDBACK/COMPLAINT SYSTEM ============
+  submitClientFeedback(body: any) {
+    return this.http.post<any>(this.apiUrl + 'feedback/client', body)
+  }
+
+  submitProfessionalFeedback(body: any) {
+    return this.http.post<any>(this.apiUrl + 'feedback/professional', body)
+  }
+  // ============ END ============
 }

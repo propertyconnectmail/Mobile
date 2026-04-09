@@ -16,16 +16,25 @@ import { ProfessionalService } from 'src/app/_services/professional/professional
   imports: [IonContent, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class ProfessionalCertificationsPage implements OnInit {
-
   registrationForm!: FormGroup;
   isSubmitting = false;
   isLoadingImage = true;
   isLoadingName = true;
   selectedCertifications: File[] = [];
   orginalCertifications = [];
-  professionalData : any = {};
+  professionalData: any = {};
+  
+  // Rejection reason properties
+  rejectionReason: string = '';
+  rejectedAt: Date | null = null;
 
-  constructor(private fb: FormBuilder,private navCtrl: NavController, private professionalService: ProfessionalService, private toastService: ToastService,private uploadService: UploadService ) {}
+  constructor(
+    private fb: FormBuilder,
+    private navCtrl: NavController,
+    private professionalService: ProfessionalService,
+    private toastService: ToastService,
+    private uploadService: UploadService
+  ) {}
 
   ngOnInit() {
     this.registrationForm = this.fb.group({
@@ -54,15 +63,18 @@ export class ProfessionalCertificationsPage implements OnInit {
           res.dob = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
         }
       }
-
       this.orginalCertifications = res.certifications;
       this.professionalData = res;
       this.registrationForm.patchValue(res);
+      
+      // Store rejection reason and date
+      this.rejectionReason = res.rejectionReason || '';
+      this.rejectedAt = res.rejectedAt ? new Date(res.rejectedAt) : null;
+      
       this.isLoadingImage = false;
       this.isLoadingName = false;
     });
   }
-
 
   handleCertUpload(event: any) {
     const files: File[] = Array.from(event.target.files);
@@ -85,24 +97,27 @@ export class ProfessionalCertificationsPage implements OnInit {
     this.navCtrl.navigateBack('/professional-profile');
   }
 
-
-  uploadFiles(){
-    
+  uploadFiles() {
     const formData = new FormData();
     this.selectedCertifications.forEach(file => {
-      formData.append('certifications', file); // 'certifications' must match the Multer field name
+      formData.append('certifications', file);
     });
 
-
     this.isSubmitting = true;
-    this.uploadService.postProfessionalFiles(formData).subscribe(async(files:any)=>{
+
+    this.uploadService.postProfessionalFiles(formData).subscribe(async (files: any) => {
       if (files.fileUrls && Array.isArray(files.fileUrls)) {
         const updatedData = {
           ...this.professionalData,
-          certifications: files.fileUrls
+          certifications: files.fileUrls,
+          // When re-uploading certifications, change status back to pending for review
+          status: this.professionalData.status === 'rejected' ? 'pending' : this.professionalData.status,
+          // Clear rejection reason if re-submitting
+          rejectionReason: this.professionalData.status === 'rejected' ? '' : this.professionalData.rejectionReason,
+          rejectedAt: this.professionalData.status === 'rejected' ? null : this.professionalData.rejectedAt
         };
 
-        this.professionalService.updateProfessionalForm(updatedData).subscribe(async(res: any) => {
+        this.professionalService.updateProfessionalForm(updatedData).subscribe(async (res: any) => {
           console.log(res);
           if (res.message === 'success') {
             this.toastService.show('Certifications updated successfully!', {
@@ -122,19 +137,17 @@ export class ProfessionalCertificationsPage implements OnInit {
           }
         });
       }
-    })
+    });
   }
 
-  downloadFiles(){
+  downloadFiles() {
     const docs = this.orginalCertifications;
     if (docs.length === 0) return;
 
-    const apiUrl = 'https://propertconnectbackend.onrender.com/api/certifications/download-zip';
+    const apiUrl = 'https://backendv2-gyp9.onrender.com/api/certifications/download-zip';
     const params = new URLSearchParams();
     docs.forEach((url: string) => params.append('urls', url));
-
     const downloadUrl = `${apiUrl}?${params.toString()}`;
     window.open(downloadUrl, '_blank');
   }
-
 }

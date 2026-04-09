@@ -1,7 +1,6 @@
 .browse-consultants {
   --background: #f9fafb;
   font-family: 'Manrope', sans-serif;
-
   .top-section {
     position: sticky;
     top: 0;
@@ -9,13 +8,11 @@
     background-color: #f9fafb;
     padding: 10vw 4vw 3vw 4vw;
   }
-
   .header {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem 0;
-
     h1 {
       font-size: 5vw;
       font-weight: 700;
@@ -25,7 +22,6 @@
       margin-bottom: 5%;
     }
   }
-
   .search-bar {
     background: #ffffff;
     border-radius: 14px;
@@ -35,7 +31,6 @@
     margin-bottom: 5vw;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.2s ease;
-
     input {
       flex: 1;
       border: none;
@@ -44,29 +39,24 @@
       outline: none;
       color: #333;
     }
-
     .search-icon {
       width: 5vw;
       height: 5vw;
       margin-right: 2vw;
     }
-
     &:focus-within {
       box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
     }
   }
-
   .category-scroll {
     display: flex;
     overflow-x: auto;
     gap: 3vw;
     padding-bottom: 1vw;
     margin-bottom: 3vw;
-
     &::-webkit-scrollbar {
       display: none;
     }
-
     .category-button {
       flex: 0 0 auto;
       padding: 2vw 5vw;
@@ -78,7 +68,6 @@
       background: transparent;
       white-space: nowrap;
       transition: all 0.2s ease;
-
       &.active,
       &:active {
         background: #2196f3;
@@ -88,9 +77,147 @@
     }
   }
 
+  // ============ ADDED FOR LOCATION FILTER ============
+  .filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 3vw;
+    margin-bottom: 3vw;
+
+    .filter-toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 2vw;
+      padding: 2.5vw 4vw;
+      background: #ffffff;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 3.5vw;
+      font-weight: 500;
+      color: #333;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      transition: all 0.2s ease;
+
+      .filter-btn-icon {
+        width: 4.5vw;
+        height: 4.5vw;
+        stroke: #333;
+      }
+
+      .chevron-icon {
+        width: 4vw;
+        height: 4vw;
+        stroke: #333;
+        transition: transform 0.2s ease;
+
+        &.rotated {
+          transform: rotate(180deg);
+        }
+      }
+
+      &.active {
+        border-color: #2196f3;
+        background: rgba(33, 150, 243, 0.08);
+        color: #2196f3;
+
+        .filter-btn-icon,
+        .chevron-icon {
+          stroke: #2196f3;
+        }
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    .clear-filter-btn {
+      padding: 2vw 4vw;
+      background: transparent;
+      border: 1.5px solid #f44336;
+      border-radius: 10px;
+      font-size: 3.2vw;
+      font-weight: 500;
+      color: #f44336;
+      transition: all 0.2s ease;
+
+      &:active {
+        background: #f44336;
+        color: #fff;
+      }
+    }
+  }
+
+  .location-filter {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 4vw;
+    margin-bottom: 3vw;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    animation: slideDown 0.2s ease;
+
+    .filter-row {
+      display: flex;
+      gap: 3vw;
+    }
+
+    .filter-group {
+      flex: 1;
+
+      label {
+        display: block;
+        font-size: 3.2vw;
+        font-weight: 600;
+        color: #666;
+        margin-bottom: 1.5vw;
+      }
+
+      select {
+        width: 100%;
+        padding: 2.5vw 3vw;
+        font-size: 3.5vw;
+        font-weight: 500;
+        color: #333;
+        background: #f9fafb;
+        border: 1.5px solid #e0e0e0;
+        border-radius: 10px;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'%3E%3Cpath fill='%23666666' d='M7 10L0 0h14z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 3vw center;
+        background-size: 3vw;
+        transition: all 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #2196f3;
+          box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
+        }
+
+        &:disabled {
+          background: #f0f0f0;
+          color: #999;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  // ============ END ============
+
   .cards-container {
     padding: 0 4vw 25vw 4vw;
-
     .shimmer-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -136,12 +263,10 @@
         background-position: 200% 0;
       }
     }
-
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 4vw;      
-
       .consultant-card {
         background: #ffffff;
         border-radius: 16px;
@@ -149,18 +274,15 @@
         text-align: center;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-
         &:active {
           transform: scale(0.98);
           box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
         }
-
         .image-wrapper {
           position: relative;
           width: 20vw;
           height: 20vw;
           margin: 0 auto;
-
           img {
             width: 100%;
             height: 100%;
@@ -168,7 +290,6 @@
             object-fit: cover;
           }
         }
-
         h3 {
           font-size: 4vw;
           font-weight: 500;
@@ -176,14 +297,12 @@
           margin: 2vw 0 1vw;
           margin-bottom: 3%;
         }
-
         .role {
           font-size: 3.5vw;
           color: #666666;
           margin-bottom: 1vw;
           margin-bottom: 3%;
         }
-
         .rating {
           display: flex;
           justify-content: center;
@@ -191,14 +310,12 @@
           font-size: 3.2vw;
           font-weight: 600;
           color: #666;
-
           img {
             width: 4vw;
             height: 4vw;
             margin-right: 1vw;
           }
         }
-
         .fee {
           font-size: 3.2vw;
           font-weight: 600;
