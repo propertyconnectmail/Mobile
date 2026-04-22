@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
 
-// Theme Variables (optional centralization)
 $primary-color: #18A0FB;
 $bg-color: #f9fafb;
 $font: 'Manrope', sans-serif;
@@ -21,7 +20,7 @@ ion-content {
 
   &::-webkit-scrollbar {
     display: none;
-  }  
+  }
 
   .back-button {
     position: absolute;
@@ -40,13 +39,12 @@ ion-content {
     cursor: pointer;
     will-change: transform;
     margin-top: 3%;
-  
+
     &:active {
       transform: scale(0.97);
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      animation: bounceClick 0.3s ease-in-out;
     }
-  
+
     img {
       width: clamp(16px, 4vw, 24px);
       height: clamp(16px, 4vw, 24px);
@@ -69,20 +67,18 @@ ion-content {
   flex-direction: column;
   align-items: center;
 
-
   .logo {
     display: block;
     width: clamp(120px, 30%, 180px);
     margin: clamp(32px, 6vh, 64px) auto clamp(32px, 6vh, 64px) auto;
     object-fit: contain;
   }
-  
 }
 
 h1 {
   font-size: clamp(24px, 5vw, 32px);
   font-weight: 900;
-  margin-top: 0; // already spaced by logo's bottom margin
+  margin-top: 0;
   margin-bottom: clamp(12px, 2vh, 24px);
   color: #111827;
 }
@@ -91,7 +87,7 @@ h1 {
   font-size: clamp(0.9rem, 3vw, 1.1rem);
   color: #6B7280;
   font-weight: 400;
-  margin-bottom: clamp(24px, 5vh, 40px); // less cramped
+  margin-bottom: clamp(24px, 5vh, 40px);
   text-align: center;
   line-height: 1.6;
 }
@@ -103,6 +99,18 @@ h1 {
 
 .input-group {
   margin-bottom: clamp(16px, 3vh, 28px);
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #374151;
+
+    span {
+      color: #ef4444;
+    }
+  }
 
   input {
     width: 100%;
@@ -119,7 +127,6 @@ h1 {
       outline: none;
       border-color: $primary-color;
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-      transition: border-color 0.3s ease-in-out;
     }
   }
 
@@ -134,36 +141,57 @@ h1 {
     margin-top: 0.25rem;
   }
 
-
   select {
     width: 100%;
     padding: 12px;
-    padding-right: 36px; // add space for custom arrow
+    padding-right: 36px;
     font-size: 0.95rem;
     border: 1px solid #d1d5db;
     border-radius: 8px;
     background-color: #fff;
     color: #374151;
-  
-    // Hide default arrow for different browsers
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-  
-    // Add custom arrow
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'%3E%3Cpath fill='%23374151' d='M7 10L0 0h14z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 12px;
-  
+
     &:focus {
       border-color: #3b82f6;
       outline: none;
       box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
     }
   }
-  
 
+  .help-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    svg {
+      color: $primary-color;
+      flex-shrink: 0;
+    }
+
+    span {
+      font-size: 0.8rem;
+      color: $primary-color;
+      font-weight: 500;
+    }
+
+    &:active {
+      transform: scale(0.98);
+      background: linear-gradient(135deg, #bae6fd 0%, #e0f2fe 100%);
+    }
+  }
 
   .upload-dropzone {
     display: flex;
@@ -176,17 +204,17 @@ h1 {
     cursor: pointer;
     transition: border-color 0.3s ease;
     background-color: #f9fafb;
-  
+
     &:hover {
       border-color: #60a5fa;
     }
-  
+
     img {
       width: 32px;
       height: 32px;
       margin-bottom: 10px;
     }
-  
+
     p {
       font-size: 0.85rem;
       color: #6b7280;
@@ -194,12 +222,37 @@ h1 {
       margin: 0;
     }
   }
-  
+
+  .selfie-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+    }
+
+    .retake-btn {
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #18A0FB;
+      background: transparent;
+      border: 1px solid #18A0FB;
+      border-radius: 8px;
+    }
+  }
+
   ul {
     list-style: none;
     padding-left: 0;
     margin-top: 12px;
-  
+
     li {
       font-size: 0.85rem;
       color: #374151;
@@ -208,6 +261,42 @@ h1 {
       border-radius: 6px;
       margin-bottom: 6px;
       word-break: break-word;
+    }
+  }
+}
+
+.agreement-group {
+  .agreement-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+
+    &:active {
+      background: #f3f4f6;
+    }
+
+    ion-checkbox {
+      --size: 22px;
+      --checkbox-background-checked: #18A0FB;
+      --border-color: #d1d5db;
+      --border-color-checked: #18A0FB;
+    }
+
+    .agreement-text {
+      font-size: 0.9rem;
+      color: #374151;
+
+      .terms-link {
+        color: $primary-color;
+        font-weight: 600;
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -225,35 +314,6 @@ h1 {
     width: 1.2rem;
   }
 }
-
-.options {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: clamp(16px, 2vh, 24px);
-  font-size: 0.85rem;
-  color: #6b7280;
-
-  .forgot-link {
-    color: $primary-color;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-
-    &:active {
-      color: darken($primary-color, 20%); // Slightly darker on hover
-      transition: color 0.3s ease;
-    }
-  }
-
-  .remember {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; // small gap between checkbox and text
-    color: #374151;
-  }
-}
-
 
 .button-group {
   width: 100%;
@@ -273,7 +333,7 @@ h1 {
 
   button {
     position: relative;
-    overflow: hidden; // for ripple containment
+    overflow: hidden;
     font-family: 'Manrope', sans-serif;
     font-size: clamp(18px, 2vw, 20px);
     font-weight: 600;
@@ -292,20 +352,19 @@ h1 {
     height: 55px;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-  
+
     &:active {
       transform: translateY(2px) scale(0.98);
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
     }
-  
-    // Spinner Styles
+
     .btn-inner {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
     }
-  
+
     .spinner {
       margin: 0;
       width: 22px;
@@ -314,164 +373,349 @@ h1 {
       border-radius: 50%;
       animation: spin 0.6s linear infinite;
       box-sizing: border-box;
-      opacity: 1;
-      transform: scale(1);
     }
-  
-    // Adjusted spinner sizes
+
     .spinner-sm { width: 16px; height: 16px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
     .spinner-md { width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
     .spinner-lg { width: 28px; height: 28px; border: 3px solid rgba(255, 255, 255, 0.4); border-top: 3px solid white; }
     .spinner-xl { width: 36px; height: 36px; border: 4px solid rgba(255, 255, 255, 0.4); border-top: 4px solid white; }
-  
-    // Modifier: dark spinner for light backgrounds
+
     .spinner-dark {
       border-color: rgba(0, 0, 0, 0.1);
       border-top-color: #333;
     }
-  
-    // Ripple effect
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 600ms linear;
-      background-color: rgba(0, 123, 255, 0.3);
-      pointer-events: none;
-    }
-  
-    // Button hover, active, and disabled states
+
     &:hover {
       background-color: #1579C8;
       transform: translateY(-2px);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
-  
-    &:active {
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
   }
-  
-  // Spinner animation (as per your provided code)
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-  
-  // Ripple keyframe animation
-  @keyframes ripple {
-    to {
-      transform: scale(4);
-      opacity: 0;
-    }
-  }  
 }
 
-.divider {
-  margin: clamp(24px, 5vh, 40px) 0;
-  text-align: center;
-  color: #9ca3af; //9ca3af
-  font-size: 0.85rem;
+// ==========================================
+// POPUP STYLES
+// ==========================================
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
 }
 
-.social-buttons {
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.popup-container {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease;
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: clamp(24px, 4vh, 40px);
+}
 
-  .social-btn {
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+
+  svg {
+    color: #6b7280;
+  }
+
+  &:active {
+    background: #e5e7eb;
+    transform: scale(0.95);
+  }
+}
+
+.popup-header {
+  padding: 28px 24px 20px;
+  text-align: center;
+  border-bottom: 1px solid #f3f4f6;
+
+  .popup-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
     display: flex;
     align-items: center;
-    color: #202020;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    background: white;
-    font-size: 0.95rem;
-    font-weight: 600;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    margin: 0 auto 16px;
 
-    img {
-      width: 1.25rem;
-      height: 1.25rem;
+    svg {
+      color: $primary-color;
     }
 
-    &:hover {
-      background: #f3f4f6;
-    }
+    &.terms-icon {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
 
-    // Ripple span
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 600ms linear;
-      background-color: rgba(0, 123, 255, 0.3);
-      pointer-events: none;
+      svg {
+        color: #d97706;
+      }
     }
+  }
 
-    &:active {
-      transform: translateY(2px) scale(0.98);
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
-    }
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 6px;
+  }
+
+  .popup-subtitle {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0;
   }
 }
 
-// Ripple animation
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
+// Required Documents Popup
+.docs-popup {
+  .docs-list {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 300px;
+    overflow-y: auto;
 
-.signup-text {
-  margin-top: clamp(24px, 4vh, 40px);
-  font-size: 0.85rem;
-  color: #6b7280;
-  font-weight: 500;
-  text-align: center;
-  transition: color 0.3s ease;
+    .doc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
 
-  .signup-link {
-    color: $primary-color;
-    font-weight: 500;
-    text-decoration: none;
-    margin-left: 0.25rem;
-    transition: color 0.3s ease;
+      .doc-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
 
-    &:active {
-      color: darken($primary-color, 20%); // Slightly darker on hover
-      transition: color 0.3s ease;
+        svg {
+          color: #059669;
+        }
+
+        &.optional {
+          background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+
+          svg {
+            color: #d97706;
+          }
+        }
+      }
+
+      .doc-content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .doc-name {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: #374151;
+          line-height: 1.4;
+        }
+
+        .doc-tag {
+          font-size: 0.7rem;
+          font-weight: 600;
+          color: #d97706;
+          background: #fef3c7;
+          padding: 2px 8px;
+          border-radius: 4px;
+          width: fit-content;
+        }
+      }
     }
   }
+
+  .popup-btn {
+    margin: 0 24px 24px;
+  }
 }
 
-.change-type {
-  font-size: 0.85rem;
-  color: #6b7280;
-  font-weight: 500;
-  display: block;
-  margin: 0.6rem;
-  text-align: center;
-  transition: color 0.3s ease;
+// Terms & Conditions Popup
+.terms-popup {
+  max-height: 90vh;
 
-  .signup-link {
-    color: $primary-color;
-    font-weight: 500;
-    text-decoration: none;
-    margin-left: 0.25rem;
-    transition: color 0.3s ease;
+  .terms-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+    max-height: 50vh;
+
+    .terms-section {
+      margin-bottom: 24px;
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #111827;
+        margin: 0 0 12px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e5e7eb;
+      }
+
+      h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #374151;
+        margin: 12px 0 8px;
+      }
+
+      p {
+        font-size: 0.85rem;
+        color: #4b5563;
+        line-height: 1.6;
+        margin: 0 0 8px;
+      }
+
+      ul {
+        margin: 8px 0;
+        padding-left: 0;
+        list-style: none;
+
+        li {
+          font-size: 0.85rem;
+          color: #4b5563;
+          line-height: 1.6;
+          padding: 6px 0 6px 24px;
+          position: relative;
+          background: none;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 14px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: $primary-color;
+          }
+        }
+      }
+
+      .warning-text {
+        background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        border-left: 3px solid #dc2626;
+        padding: 10px 14px;
+        border-radius: 0 8px 8px 0;
+        color: #991b1b;
+        font-weight: 500;
+      }
+
+      .subsection {
+        margin-left: 12px;
+        padding-left: 12px;
+        border-left: 2px solid #e5e7eb;
+        margin-bottom: 16px;
+      }
+
+      &.highlight-section {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        padding: 16px;
+        border-radius: 12px;
+        border: 1px solid #bbf7d0;
+
+        h3 {
+          border-bottom-color: #86efac;
+        }
+      }
+    }
+  }
+
+  .popup-actions {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px 24px;
+    border-top: 1px solid #f3f4f6;
+    background: #fff;
+  }
+}
+
+// Popup Buttons
+.popup-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.primary {
+    background: $primary-color;
+    color: #fff;
 
     &:active {
-      color: darken($primary-color, 20%); // Slightly darker on hover
-      transition: color 0.3s ease;
+      background: darken($primary-color, 10%);
+      transform: scale(0.98);
+    }
+  }
+
+  &.secondary {
+    background: #f3f4f6;
+    color: #374151;
+
+    &:active {
+      background: #e5e7eb;
+      transform: scale(0.98);
     }
   }
 }

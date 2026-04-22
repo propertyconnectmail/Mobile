@@ -2,11 +2,14 @@
   <div class="back-button" (click)="prev()">
     <img src="../../../assets/back-btn.svg" alt="Back" />
   </div>
+
   <div class="login-container">
     <img src="assets/logo/logo.svg" alt="App Logo" class="logo" />
     <h1>Create Your Account</h1>
     <p class="welcome-subtitle">Become a trusted expert on our platform.</p>
+
     <form (ngSubmit)="onRegistration()" [formGroup]="registrationForm" class="login-form">
+
       <!-- Basic Fields -->
       <div class="input-group" *ngFor="let field of basicFields">
         <label>{{ field.label }} <span>*</span></label>
@@ -16,7 +19,6 @@
         </div>
       </div>
 
-      <!-- ============ ADDED PROVINCE AND DISTRICT ============ -->
       <!-- Province -->
       <div class="input-group">
         <label>Province <span>*</span></label>
@@ -40,7 +42,6 @@
           Please select a district
         </div>
       </div>
-      <!-- ============ END ============ -->
 
       <div class="input-group">
         <label>Date of Birth <span> *</span></label>
@@ -49,6 +50,7 @@
           Please enter a valid date of birth.
         </div>
       </div>
+
       <!-- Experience -->
       <div class="input-group">
         <label>Years of Experience <span>*</span></label>
@@ -57,7 +59,8 @@
           Please enter a valid number of years.
         </div>
       </div>
-      <!-- Experience -->
+
+      <!-- About -->
       <div class="input-group">
         <label>About You <span>*</span></label>
         <input type="text" formControlName="about" placeholder="Im a Certified Professional in land ..." />
@@ -65,7 +68,8 @@
           Please enter a valid about you section.
         </div>
       </div>
-      <!-- Experience -->
+
+      <!-- Consultation Fee -->
       <div class="input-group">
         <label>Consultation Fee <span>*</span></label>
         <input type="number" formControlName="consultationFee" placeholder="e.g., 5000" />
@@ -73,6 +77,7 @@
           Please enter a valid ConsultationFee.
         </div>
       </div>
+
       <!-- Password -->
       <div class="input-group password-group">
         <label>Password <span>*</span></label>
@@ -84,6 +89,7 @@
           Password should be atleast 6 characters
         </div>
       </div>
+
       <!-- Confirm Password -->
       <div class="input-group password-group">
         <label>Confirm Password <span>*</span></label>
@@ -95,10 +101,11 @@
           Password should be atleast 6 characters and matching the password field
         </div>
       </div>
-      <!-- Type -->
+
+      <!-- Professional Type -->
       <div class="input-group">
         <label>Professional Type <span>*</span></label>
-        <select formControlName="type">
+        <select formControlName="type" (change)="onProfessionalTypeChange()">
           <option value="" disabled selected>Select your profession</option>
           <option value="lawyer">Lawyer</option>
           <option value="valuer">Valuer</option>
@@ -107,10 +114,20 @@
         <div class="error-text" *ngIf="registrationForm.get('type')?.invalid && registrationForm.get('type')?.touched">
           Please select a professional type
         </div>
+        <!-- Help icon to show required documents -->
+        <div class="help-link" *ngIf="registrationForm.get('type')?.value" (click)="openRequiredDocsPopup()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span>View required documents for {{ registrationForm.get('type')?.value | titlecase }}</span>
+        </div>
       </div>
+
       <!-- Certifications Upload -->
       <div class="input-group">
-        <label>Upload Certifications (PDF, DOC, DOCX)</label>
+        <label>Upload Certifications (PDF, DOC, DOCX) <span>*</span></label>
         <div class="upload-dropzone" (click)="certFileInput.click()">
           <img src="assets/appointment/file-upload.svg" alt="Upload Icon" />
           <p>Click here to select documents</p>
@@ -127,15 +144,35 @@
           <li *ngFor="let file of selectedCertifications">{{ file.name }}</li>
         </ul>
       </div>
-      <!-- Agreement -->
+
+      <!-- Identity Verification Photo -->
       <div class="input-group">
-        <ion-checkbox formControlName="agreement" labelPlacement="end" justify="start">
-          I agree to the Terms & Conditions
-        </ion-checkbox>
+        <label>Identity Verification Photo <span>*</span></label>
+        
+        <!-- Before capture -->
+        <div class="upload-dropzone" *ngIf="!capturedSelfie" (click)="captureFace()">
+          <img src="assets/icon/camera-icon.png" alt="Camera Icon" />
+          <p>Tap to take a photo of yourself</p>
+        </div>
+        
+        <!-- After capture - show preview -->
+        <div class="selfie-preview" *ngIf="capturedSelfie">
+          <img [src]="capturedSelfie" alt="Your photo" />
+          <button type="button" class="retake-btn" (click)="retakeSelfie()">Retake</button>
+        </div>
+      </div>
+
+      <!-- Agreement Checkbox -->
+      <div class="input-group agreement-group">
+        <div class="agreement-row" (click)="openTermsPopup()">
+          <ion-checkbox formControlName="agreement" labelPlacement="end" justify="start" (click)="$event.stopPropagation()"></ion-checkbox>
+          <span class="agreement-text">I agree to the <span class="terms-link">Terms & Conditions</span></span>
+        </div>
         <div class="error-text" *ngIf="registrationForm.get('agreement')?.invalid && registrationForm.get('agreement')?.touched">
           You must agree before continuing.
         </div>
       </div>
+
       <div class="button-group">
         <div class="selection-buttons">
           <button
@@ -152,6 +189,226 @@
           </button>
         </div>
       </div>
+
     </form>
   </div>
 </ion-content>
+
+<!-- Required Documents Popup -->
+<div class="popup-overlay" *ngIf="showRequiredDocsPopup" (click)="closeRequiredDocsPopup()">
+  <div class="popup-container docs-popup" (click)="$event.stopPropagation()">
+    <button class="popup-close" (click)="closeRequiredDocsPopup()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <div class="popup-header">
+      <div class="popup-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </div>
+      <h2>Required Documents</h2>
+      <p class="popup-subtitle">For {{ selectedProfessionalType | titlecase }} Registration</p>
+    </div>
+
+    <div class="docs-list">
+      <div class="doc-item" *ngFor="let doc of getRequiredDocuments()">
+        <div class="doc-icon" [ngClass]="{ 'optional': doc.optional }">
+          <svg *ngIf="!doc.optional" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <svg *ngIf="doc.optional" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="doc-content">
+          <span class="doc-name">{{ doc.name }}</span>
+          <span class="doc-tag" *ngIf="doc.optional">Optional</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="popup-btn primary" (click)="closeRequiredDocsPopup()">Got It</button>
+  </div>
+</div>
+
+<!-- Terms & Conditions Popup -->
+<div class="popup-overlay" *ngIf="showTermsPopup" (click)="closeTermsPopup()">
+  <div class="popup-container terms-popup" (click)="$event.stopPropagation()">
+    <button class="popup-close" (click)="closeTermsPopup()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="popup-header">
+      <div class="popup-icon terms-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      </div>
+      <h2>Terms & Conditions</h2>
+      <p class="popup-subtitle">Please read carefully before proceeding</p>
+    </div>
+
+    <div class="terms-content">
+      <div class="terms-section">
+        <h3>1. Introduction</h3>
+        <p>PropertyConnect is a digital platform designed to connect clients with property-related professionals, including but not limited to lawyers, surveyors, valuers, notaries, and real estate agents.</p>
+        <p>By accessing or using PropertyConnect, you agree to be bound by these Terms & Conditions.</p>
+      </div>
+
+      <div class="terms-section">
+        <h3>2. Nature of the Platform</h3>
+        <ul>
+          <li>PropertyConnect acts solely as an intermediary platform</li>
+          <li>We do not directly provide professional services</li>
+          <li>All professionals operate as independent service providers</li>
+        </ul>
+        <p><strong>PropertyConnect shall not be held liable for:</strong></p>
+        <ul>
+          <li>Professional advice or actions</li>
+          <li>Errors in legal, surveying, or valuation work</li>
+          <li>Outcomes of services provided</li>
+        </ul>
+      </div>
+
+      <div class="terms-section">
+        <h3>3. User Accounts</h3>
+        <ul>
+          <li>Users must provide accurate, current, and complete information</li>
+          <li>Users are responsible for maintaining the confidentiality of their accounts</li>
+          <li>PropertyConnect reserves the right to suspend or terminate accounts for misuse</li>
+        </ul>
+      </div>
+
+      <div class="terms-section">
+        <h3>4. Professional Registration & Verification</h3>
+        <ul>
+          <li>Professionals must submit valid documentation for verification</li>
+          <li>PropertyConnect reserves the right to approve or reject applications</li>
+          <li>We may request additional documentation at any time</li>
+          <li>Credentials may be re-verified periodically</li>
+        </ul>
+        <p class="warning-text">Submission of false or misleading documents will result in immediate suspension or permanent removal.</p>
+      </div>
+
+      <div class="terms-section">
+        <h3>5. Appointment Booking</h3>
+        <ul>
+          <li>Clients may book professionals through the platform</li>
+          <li>Bookings are confirmed only after successful payment via the platform</li>
+          <li>Both client and professional must agree to attend the scheduled appointment</li>
+        </ul>
+      </div>
+
+      <div class="terms-section highlight-section">
+        <h3>💰 6. Escrow Payment System</h3>
+        <div class="subsection">
+          <h4>6.1 How It Works</h4>
+          <ul>
+            <li>All payments made by clients are held securely in an escrow system managed by PropertyConnect</li>
+            <li>Funds are not immediately released to the professional</li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <h4>6.2 Release of Funds</h4>
+          <p>Payment will be released to the professional only when:</p>
+          <ul>
+            <li>The appointment is successfully completed, AND</li>
+            <li>The client confirms completion OR no dispute is raised within a defined period</li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <h4>6.3 Platform Commission</h4>
+          <p>PropertyConnect may deduct a commission (e.g., 8%) from the escrowed amount before releasing funds.</p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h3>7. Refund Policy</h3>
+        <div class="subsection">
+          <h4>7.1 Full Refund Eligibility</h4>
+          <p>Clients are eligible for a 100% refund under the following conditions:</p>
+          <ul>
+            <li>The professional fails to attend the appointment (No-Show)</li>
+            <li>The professional cancels within a restricted time window</li>
+            <li>The service is not delivered as agreed</li>
+            <li>Platform-related technical issues prevent service completion</li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <h4>7.2 Client No-Show</h4>
+          <ul>
+            <li>If the client fails to attend: No refund will be issued</li>
+            <li>Payment may be released to the professional</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h3>8. Professional Responsibilities</h3>
+        <p>Professionals agree to:</p>
+        <ul>
+          <li>Provide accurate credentials and information</li>
+          <li>Maintain valid licenses</li>
+          <li>Attend appointments on time</li>
+          <li>Deliver services ethically and professionally</li>
+        </ul>
+        <p class="warning-text">Failure to comply may result in suspension, permanent removal, or withholding of payments.</p>
+      </div>
+
+      <div class="terms-section">
+        <h3>9. Ratings & Reviews</h3>
+        <ul>
+          <li>Clients may rate and review professionals</li>
+          <li>Reviews must be honest and non-abusive</li>
+          <li>PropertyConnect may remove inappropriate content</li>
+          <li>Poor ratings may impact a professional's standing</li>
+        </ul>
+      </div>
+
+      <div class="terms-section">
+        <h3>10. Data Privacy</h3>
+        <ul>
+          <li>User data and documents are securely stored</li>
+          <li>Information is used solely for platform functionality and verification</li>
+          <li>Data will not be shared without consent unless required by law</li>
+        </ul>
+      </div>
+
+      <div class="terms-section">
+        <h3>11. Limitation of Liability</h3>
+        <p>PropertyConnect is not liable for:</p>
+        <ul>
+          <li>Financial or legal losses</li>
+          <li>Errors by professionals</li>
+          <li>Service delays or failures beyond platform control</li>
+        </ul>
+      </div>
+
+      <div class="terms-section">
+        <h3>12. Modifications to Terms</h3>
+        <ul>
+          <li>PropertyConnect reserves the right to update these Terms & Conditions</li>
+          <li>Users will be notified of significant changes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="popup-actions">
+      <button class="popup-btn secondary" (click)="closeTermsPopup()">Cancel</button>
+      <button class="popup-btn primary" (click)="acceptTerms()">I Agree</button>
+    </div>
+  </div>
+</div>
